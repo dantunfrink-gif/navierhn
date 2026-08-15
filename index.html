@@ -190,6 +190,78 @@ a{color:var(--gold);text-decoration:none}
 .calc-factors-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .calc-factor{padding:6px 10px;background:rgba(26,30,53,.5);font-family:var(--font-mono);font-size:11.5px;color:var(--silver)}
 @media(max-width:768px){.calc-factors-grid{grid-template-columns:1fr}}
+
+/* -- HF MANUAL MODAL -- */
+.hf-overlay{position:fixed;inset:0;z-index:300;background:rgba(8,8,26,.96);backdrop-filter:blur(16px);display:none;opacity:0;transition:opacity .4s;overflow-y:auto}
+.hf-overlay.active{display:block;opacity:1}
+.hf-close{position:fixed;top:16px;right:24px;z-index:301;background:rgba(26,30,53,.8);border:1px solid rgba(201,168,76,.15);color:var(--silver);font-size:28px;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;transition:all .3s;line-height:1}
+.hf-close:hover{color:var(--gold);border-color:rgba(201,168,76,.4)}
+.hf-body{--hf-ground:#0b141d;--hf-surface:rgba(18,31,43,.95);--hf-surface-2:rgba(15,26,36,.95);--hf-ink:#e7eff6;--hf-muted:#93a6b6;--hf-faint:#65798a;--hf-accent:#2bb8d6;--hf-accent-deep:#5fd0e6;--hf-accent-soft:#0f2b34;--hf-line:#233340;--hf-line-soft:#1a2833;--hf-tip:#4cc47f;--hf-tip-bg:#0f241a;--hf-warn:#e77b6d;--hf-warn-bg:#2a1613;--hf-shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);--hf-mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,monospace;--hf-sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--hf-ink);font-family:var(--hf-sans);line-height:1.62;font-size:16px;padding-bottom:60px}
+.hf-body .hf-wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.hf-body .hf-hero{position:relative;overflow:hidden;background:radial-gradient(120% 140% at 88% -10%,var(--hf-accent-soft) 0%,transparent 55%),linear-gradient(180deg,var(--hf-surface) 0%,var(--hf-ground) 100%);border-bottom:1px solid var(--hf-line)}
+.hf-body .hf-hero-inner{max-width:1180px;margin:0 auto;padding:56px 24px 40px;position:relative;z-index:2}
+.hf-body .hf-brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.01em}
+.hf-body .hf-brand .hf-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(150deg,var(--hf-accent),var(--hf-accent-deep));display:grid;place-items:center;color:#fff;font-size:18px;box-shadow:var(--hf-shadow)}
+.hf-body .hf-brand b{font-size:18px}
+.hf-body .hf-brand .hf-pro{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--hf-accent);border:1px solid var(--hf-accent);border-radius:5px;padding:2px 6px}
+.hf-body h1{font-size:clamp(30px,5vw,50px);line-height:1.04;margin:22px 0 10px;letter-spacing:-.03em;font-weight:800;text-wrap:balance;max-width:16ch}
+.hf-body h1 .hf-grad{background:linear-gradient(120deg,var(--hf-accent-deep),var(--hf-accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hf-body .hf-lede{font-size:clamp(16px,2.2vw,19px);color:var(--hf-muted);max-width:60ch;margin:0}
+.hf-body .hf-hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.hf-body .hf-chip{font-size:12.5px;font-weight:600;color:var(--hf-accent-deep);background:var(--hf-surface);border:1px solid var(--hf-line);border-radius:999px;padding:5px 12px}
+.hf-body .hf-layout{display:grid;grid-template-columns:248px minmax(0,1fr);gap:44px;padding:40px 0 80px}
+.hf-body .hf-toc{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow:auto}
+.hf-body .hf-toc .hf-toc-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--hf-faint);font-weight:700;margin:0 0 10px 10px}
+.hf-body .hf-toc a{display:flex;gap:10px;align-items:baseline;padding:6px 10px;border-radius:8px;text-decoration:none;color:var(--hf-muted);font-size:13.5px;line-height:1.35;border-left:2px solid transparent}
+.hf-body .hf-toc a .hf-n{font-family:var(--hf-mono);font-size:11.5px;color:var(--hf-accent);min-width:16px;font-weight:600}
+.hf-body .hf-toc a:hover{background:var(--hf-surface-2);color:var(--hf-ink)}
+.hf-body .hf-toc a.active{background:var(--hf-accent-soft);color:var(--hf-ink);border-left-color:var(--hf-accent);font-weight:600}
+.hf-body .hf-main{min-width:0}
+.hf-body .hf-main section{scroll-margin-top:18px;margin-bottom:38px}
+.hf-body .hf-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--hf-mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--hf-accent);font-weight:600;margin-bottom:6px}
+.hf-body .hf-eyebrow::before{content:"";width:22px;height:2px;background:var(--hf-accent);border-radius:2px}
+.hf-body h2{font-size:clamp(22px,3vw,28px);letter-spacing:-.02em;margin:0 0 12px;font-weight:800;text-wrap:balance}
+.hf-body h3{font-size:16px;margin:22px 0 8px;font-weight:700;letter-spacing:-.01em}
+.hf-body p{margin:0 0 12px;max-width:68ch}
+.hf-body .hf-main ul,.hf-body .hf-main ol{max-width:68ch;padding-left:22px;margin:0 0 12px}
+.hf-body .hf-main li{margin-bottom:6px}
+.hf-body strong{font-weight:700}
+.hf-body .hf-card{background:var(--hf-surface);border:1px solid var(--hf-line);border-radius:14px;padding:22px 24px;box-shadow:var(--hf-shadow)}
+.hf-body kbd{font-family:var(--hf-mono);font-size:12.5px;background:var(--hf-surface-2);border:1px solid var(--hf-line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:var(--hf-ink);white-space:nowrap}
+.hf-body code{font-family:var(--hf-mono);font-size:13px;background:var(--hf-surface-2);border:1px solid var(--hf-line-soft);border-radius:5px;padding:1px 5px}
+.hf-body .hf-note{border-radius:10px;padding:12px 16px;margin:14px 0;font-size:14.5px;border:1px solid var(--hf-line)}
+.hf-body .hf-note.hf-tip{background:var(--hf-tip-bg);border-color:rgba(76,196,127,.35)}
+.hf-body .hf-note.hf-warn{background:var(--hf-warn-bg);border-color:rgba(231,123,109,.35)}
+.hf-body .hf-note b{color:var(--hf-ink)}
+.hf-body .hf-note.hf-tip b{color:var(--hf-tip)}
+.hf-body .hf-note.hf-warn b{color:var(--hf-warn)}
+.hf-body .hf-flow{display:grid;gap:12px;counter-reset:hfstep;margin:8px 0 4px}
+.hf-body .hf-flow .hf-step{display:grid;grid-template-columns:38px 1fr;gap:14px;align-items:start;background:var(--hf-surface);border:1px solid var(--hf-line);border-radius:12px;padding:14px 16px}
+.hf-body .hf-flow .hf-step .hf-num{counter-increment:hfstep;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-family:var(--hf-mono);font-weight:700;color:#fff;background:linear-gradient(150deg,var(--hf-accent),var(--hf-accent-deep))}
+.hf-body .hf-flow .hf-step .hf-num::before{content:counter(hfstep,decimal-leading-zero)}
+.hf-body .hf-flow .hf-step h4{margin:2px 0 3px;font-size:15px;font-weight:700}
+.hf-body .hf-flow .hf-step p{margin:0;font-size:14px;color:var(--hf-muted)}
+.hf-body .hf-tbl{width:100%;overflow-x:auto;border:1px solid var(--hf-line);border-radius:12px;margin:12px 0}
+.hf-body .hf-tbl table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+.hf-body .hf-tbl th,.hf-body .hf-tbl td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--hf-line-soft);vertical-align:top}
+.hf-body .hf-tbl thead th{background:var(--hf-surface-2);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--hf-muted);font-weight:700}
+.hf-body .hf-tbl tbody tr:last-child td{border-bottom:0}
+.hf-body .hf-tbl td.num,.hf-body .hf-tbl th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.hf-body .hf-tbl td:first-child{font-weight:600}
+.hf-body .hf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hf-body .hf-mini{background:var(--hf-surface);border:1px solid var(--hf-line);border-radius:12px;padding:16px 18px}
+.hf-body .hf-mini h4{margin:0 0 6px;font-size:14.5px;display:flex;align-items:center;gap:8px}
+.hf-body .hf-mini h4 .hf-dot{width:8px;height:8px;border-radius:50%;background:var(--hf-accent)}
+.hf-body .hf-mini p{font-size:13.5px;color:var(--hf-muted);margin:0}
+.hf-body .hf-divider{height:1px;background:var(--hf-line);border:0;margin:0 0 34px}
+.hf-body .hf-footer{border-top:1px solid var(--hf-line);padding:26px 0 60px;color:var(--hf-faint);font-size:13px}
+.hf-body .hf-footer .hf-wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}
+@media(max-width:860px){
+  .hf-body .hf-layout{grid-template-columns:1fr;gap:0;padding-top:24px}
+  .hf-body .hf-toc{position:static;max-height:none;margin-bottom:26px;background:var(--hf-surface);border:1px solid var(--hf-line);border-radius:12px;padding:14px}
+  .hf-body .hf-toc a.active{border-left-color:transparent}
+  .hf-body .hf-grid2{grid-template-columns:1fr}
+}
 /* -- PROJECT MODAL -- */
 .project-card{cursor:pointer}
 .project-modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(8,8,26,.92);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .4s}
@@ -422,8 +494,8 @@ a{color:var(--gold);text-decoration:none}
           <span class="soft-feat">Base de datos en tiempo real</span>
         </div>
       </div>
-      <div class="software-card reveal" style="cursor:pointer" onclick="window.open('hydroflow-manual.html','_blank')">
-        <h3><a href="hydroflow-manual.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:none" onclick="event.stopPropagation()">HIDRO FLOW</a></h3>
+      <div class="software-card reveal" style="cursor:pointer" onclick="openHFManual()">
+        <h3>HIDRO FLOW</h3>
         <div class="soft-sub">Diseño hidráulico tridimensional</div>
         <p>Plataforma especializada en el <strong>diseño tridimensional y cálculo de sistemas de agua potable</strong>. Realiza los cálculos hidráulicos correspondientes con precisión profesional, integrando las metodologías estándar de la ingeniería hidráulica.</p>
         <p>Ejecuta cálculos basados en las fórmulas de <strong>Hazen-Williams</strong>, <strong>Darcy-Weisbach</strong>, <strong>Manning</strong>, <strong>Colebrook-White</strong> y el método de <strong>Hardy Cross</strong> para redes cerradas. Aplica la ecuación de <strong>Bernoulli</strong> para análisis de energía, el número de <strong>Reynolds</strong> para clasificación de flujo, y el diagrama de <strong>Moody</strong> para factores de fricción. Calcula pérdida de carga, velocidades mínimas y máximas, y genera informes profesionales listos para presentar.</p>
@@ -442,7 +514,7 @@ a{color:var(--gold);text-decoration:none}
           <span class="soft-feat">Agua potable</span>
           <span class="soft-feat">Informes profesionales</span>
         </div>
-        <div style="margin-top:16px;text-align:right"><a href="hydroflow-manual.html" target="_blank" rel="noopener" style="color:var(--gold);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none" onclick="event.stopPropagation()">Ver Manual &#8594;</a></div>
+        <div style="margin-top:16px;text-align:right"><span style="color:var(--gold);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase">Ver Manual &#8594;</span></div>
       </div>
     </div>
     <div class="software-rights reveal">&copy; Todos los derechos reservados &mdash; Héctor Medardo Henríquez Vásquez, creador y desarrollador</div>
@@ -622,6 +694,332 @@ a{color:var(--gold);text-decoration:none}
     </div>
   </div>
 </div>
+
+<!-- HF MANUAL MODAL -->
+<div class="hf-overlay" id="hfManual" onclick="if(event.target===this)closeHFManual()">
+  <button class="hf-close" onclick="closeHFManual()">&times;</button>
+  <div class="hf-body">
+    <div class="hf-hero">
+      <div class="hf-hero-inner">
+        <div class="hf-brand">
+          <span class="hf-mark">&asymp;</span><b>HydroFlow</b><span class="hf-pro">Pro</span>
+        </div>
+        <h1>Manual de uso del <span class="hf-grad">software</span></h1>
+        <p class="hf-lede">Dise&ntilde;o y an&aacute;lisis de redes de agua potable a presi&oacute;n, drenaje pluvial e hidrolog&iacute;a 2D
+          y canales abiertos &mdash; con las Normas de Dise&ntilde;o del SANAA. Gu&iacute;a paso a paso de cada m&oacute;dulo y el flujo de trabajo completo.</p>
+        <div class="hf-hero-meta">
+          <span class="hf-chip">Redes a presi&oacute;n &middot; GGA (EPANET)</span>
+          <span class="hf-chip">Hazen-Williams</span>
+          <span class="hf-chip">Hidrolog&iacute;a 2D &middot; Saint-Venant</span>
+          <span class="hf-chip">Canales &middot; Manning</span>
+          <span class="hf-chip">Normas SANAA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hf-wrap">
+    <div class="hf-layout">
+      <nav class="hf-toc" aria-label="&Iacute;ndice">
+        <p class="hf-toc-label">Contenido</p>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-intro')"><span class="hf-n">01</span> &iquest;Qu&eacute; es HydroFlow Pro?</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-flujo')"><span class="hf-n">02</span> Flujo de trabajo</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-interfaz')"><span class="hf-n">03</span> La interfaz</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-herramientas')"><span class="hf-n">04</span> Herramientas y atajos</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-menus')"><span class="hf-n">05</span> Los men&uacute;s</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-red')"><span class="hf-n">06</span> Dibujar la red</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-dxf')"><span class="hf-n">07</span> Importar DXF y sat&eacute;lite</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-fuentes')"><span class="hf-n">08</span> Fuentes, tanques y pozo</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-caudales')"><span class="hf-n">09</span> Caudales SANAA</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-bombas')"><span class="hf-n">10</span> Bombas y v&aacute;lvulas</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-analisis')"><span class="hf-n">11</span> An&aacute;lisis y capas</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-superficie')"><span class="hf-n">12</span> Superficie e hidrolog&iacute;a</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-canales')"><span class="hf-n">13</span> Dise&ntilde;o de canales</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-reporte')"><span class="hf-n">14</span> Reporte / memoria</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-sanaa')"><span class="hf-n">15</span> Normas SANAA</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-atajos')"><span class="hf-n">16</span> Atajos de teclado</a>
+        <a href="javascript:void(0)" onclick="hfScrollTo('hf-problemas')"><span class="hf-n">17</span> Problemas frecuentes</a>
+      </nav>
+
+      <div class="hf-main">
+        <section id="hf-intro">
+          <div class="hf-eyebrow">Introducci&oacute;n</div>
+          <h2>&iquest;Qu&eacute; es HydroFlow Pro?</h2>
+          <p>Es un software profesional para el <strong>ingeniero de agua y saneamiento</strong>. Re&uacute;ne tres mundos en una sola herramienta:</p>
+          <div class="hf-grid2">
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Redes de agua potable</h4><p>Dise&ntilde;o y an&aacute;lisis a presi&oacute;n con el Global Gradient Algorithm (Todini-Pilati), el mismo m&eacute;todo de EPANET, y p&eacute;rdidas por Hazen-Williams.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Superficie e hidrolog&iacute;a 2D</h4><p>Cuencas, tiempo de concentraci&oacute;n, tormentas de dise&ntilde;o e inundaci&oacute;n por el m&eacute;todo de Saint-Venant sobre el terreno.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Canales abiertos</h4><p>Dise&ntilde;o de canales sobre un alineamiento por la ecuaci&oacute;n de Manning, con verificaci&oacute;n y su propio informe.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Normas SANAA</h4><p>Dotaciones, factores, velocidades, presiones y di&aacute;metros m&iacute;nimos aplicados y verificados autom&aacute;ticamente.</p></div>
+          </div>
+          <p style="margin-top:14px">Todo lo que dibujas y calculas queda reflejado en la <strong>memoria de c&aacute;lculo</strong> imprimible: la memoria siempre est&aacute; actualizada.</p>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-flujo">
+          <div class="hf-eyebrow">Paso a paso</div>
+          <h2>Flujo de trabajo, de principio a fin</h2>
+          <p>Esta es la secuencia recomendada para un proyecto completo de red de agua potable. Cada paso se detalla en su secci&oacute;n.</p>
+          <div class="hf-flow">
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Datos del proyecto</h4><p>Archivo &rarr; Datos del proyecto: lugar, empresa, ingeniero y fecha. Salen en la portada del reporte.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Trae la topograf&iacute;a</h4><p>Importa la red desde Civil 3D (DXF) o dib&uacute;jala. Opcional: importa curvas de nivel y enciende el mapa satelital.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Coloca la fuente</h4><p>Tanque, pozo o r&iacute;o, y verifica las cotas de cada nodo.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Calcula los caudales</h4><p>Analizar &rarr; C&aacute;lculo de caudales (SANAA): poblaci&oacute;n, dotaci&oacute;n, factores, horas de bombeo. Aplica las demandas a la red.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Asigna di&aacute;metros y equipos</h4><p>Di&aacute;metros, materiales, bombas y v&aacute;lvulas seg&uacute;n se necesiten.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Ejecuta el an&aacute;lisis</h4><p>Pulsa <kbd>F5</kbd> y revisa presiones y velocidades con las capas de color.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Ajusta a la norma</h4><p>Corrige di&aacute;metros y cotas hasta cumplir: presi&oacute;n &ge; 15 mca, velocidad 0.6&ndash;5 m/s.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Genera la memoria y guarda</h4><p>Imprime la memoria (<kbd>Ctrl</kbd>+<kbd>P</kbd>) y guarda el proyecto.</p></div></div>
+          </div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-interfaz">
+          <div class="hf-eyebrow">Pantalla</div>
+          <h2>La interfaz y sus partes</h2>
+          <div class="hf-card">
+          <ul>
+            <li><strong>Barra de men&uacute;</strong> (arriba): Archivo, Editar, Ver, Analizar, Superficie, Ayuda. A la izquierda, Deshacer/Rehacer; a la derecha, el nombre del proyecto y el bot&oacute;n <strong>Ejecutar</strong>.</li>
+            <li><strong>Pesta&ntilde;as de capa:</strong> qu&eacute; se pinta con color &mdash; Presi&oacute;n, Velocidad, P&eacute;rdidas, Caudal (tuber&iacute;as) y Cota, Demanda, Nombre (nodos).</li>
+            <li><strong>Vista:</strong> alterna Plano 2D (edici&oacute;n) y 3D isom&eacute;trico (visualizaci&oacute;n).</li>
+            <li><strong>Barra de herramientas</strong> (izquierda): Seleccionar, Nodo, Fuente/Tanque, Tuber&iacute;a, Eliminar.</li>
+            <li><strong>Inspector</strong> (derecha): edita el elemento seleccionado y muestra sus resultados al instante.</li>
+            <li><strong>Leyenda</strong> (abajo): escala de color con rango manual o autom&aacute;tico.</li>
+            <li><strong>Barra de estado:</strong> totales de la red y estado de convergencia.</li>
+          </ul>
+          </div>
+          <div class="hf-note hf-tip"><b>El c&aacute;lculo es instant&aacute;neo.</b> Cada cambio recalcula presiones, caudales, velocidades y p&eacute;rdidas sin apretar nada.</div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-herramientas">
+          <div class="hf-eyebrow">Edici&oacute;n</div>
+          <h2>Herramientas y atajos</h2>
+          <div class="hf-tbl"><table>
+            <thead><tr><th>Herramienta</th><th class="num">Atajo</th><th>Para qu&eacute; sirve</th></tr></thead>
+            <tbody>
+              <tr><td>Seleccionar</td><td class="num"><kbd>V</kbd></td><td>Selecciona, mueve nodos arrastrando y abre el inspector.</td></tr>
+              <tr><td>Nodo de demanda</td><td class="num"><kbd>N</kbd></td><td>Coloca un nudo de consumo con clic en el plano.</td></tr>
+              <tr><td>Fuente / tanque</td><td class="num"><kbd>R</kbd></td><td>Coloca una frontera de nivel fijo (tanque, pozo, r&iacute;o, embalse).</td></tr>
+              <tr><td>Tuber&iacute;a</td><td class="num"><kbd>T</kbd></td><td>Une dos nodos; la longitud se calcula sola en 3D.</td></tr>
+              <tr><td>Eliminar</td><td class="num"><kbd>Supr</kbd></td><td>Borra el elemento seleccionado.</td></tr>
+            </tbody>
+          </table></div>
+          <p><kbd>Esc</kbd> vuelve a Seleccionar y limpia la selecci&oacute;n m&uacute;ltiple.</p>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-menus">
+          <div class="hf-eyebrow">Referencia</div>
+          <h2>Los men&uacute;s, opci&oacute;n por opci&oacute;n</h2>
+          <h3>Archivo</h3>
+          <div class="hf-tbl"><table>
+            <thead><tr><th>Opci&oacute;n</th><th>Qu&eacute; hace</th></tr></thead>
+            <tbody>
+              <tr><td>Nuevo proyecto <kbd>Ctrl</kbd>+<kbd>N</kbd></td><td>Empieza en blanco (avisa si hay cambios sin guardar).</td></tr>
+              <tr><td>Abrir <kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>Abre un proyecto guardado (<code>.hydro</code>).</td></tr>
+              <tr><td>Guardar <kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Guarda la red completa y los datos.</td></tr>
+              <tr><td>Datos del proyecto</td><td>Lugar, empresa, ingeniero, revisor y fecha &mdash; para la portada del reporte.</td></tr>
+              <tr><td>Importar de Civil 3D (DXF)</td><td>Crea la red desde una polil&iacute;nea 3D.</td></tr>
+              <tr><td>Importar topograf&iacute;a AutoCAD (DXF)</td><td>Trae curvas de nivel / l&iacute;neas como fondo.</td></tr>
+              <tr><td>Eliminar topograf&iacute;a</td><td>Quita la topograf&iacute;a importada.</td></tr>
+              <tr><td>Exportar resultados CSV</td><td>Tabla de nodos y tuber&iacute;as para Excel.</td></tr>
+              <tr><td>Imprimir reporte / memoria <kbd>Ctrl</kbd>+<kbd>P</kbd></td><td>Genera la memoria de c&aacute;lculo.</td></tr>
+            </tbody>
+          </table></div>
+          <div class="hf-grid2" style="margin-top:16px">
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Editar</h4><p>Deshacer <kbd>Ctrl</kbd>+<kbd>Z</kbd> / Rehacer <kbd>Ctrl</kbd>+<kbd>Y</kbd> (incluyen la topograf&iacute;a) y Eliminar selecci&oacute;n.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Ver</h4><p>Vista 2D / 3D, Capas de topograf&iacute;a, y Unidades (SI o Imperial).</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Analizar</h4><p>Ejecutar an&aacute;lisis <kbd>F5</kbd>, C&aacute;lculo de caudales SANAA, Dise&ntilde;o de bomba y Ecuaciones del c&aacute;lculo.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Superficie</h4><p>An&aacute;lisis de superficie / drenaje, Dise&ntilde;o de canales e Importar superficie (LandXML/DXF).</p></div>
+          </div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-red">
+          <div class="hf-eyebrow">Modelado</div>
+          <h2>Dibujar y editar la red</h2>
+          <ol>
+            <li>Con <strong>Fuente/Tanque</strong> (<kbd>R</kbd>) coloca la fuente de nivel fijo.</li>
+            <li>Con <strong>Nodo</strong> (<kbd>N</kbd>) coloca los nudos de demanda.</li>
+            <li>Con <strong>Tuber&iacute;a</strong> (<kbd>T</kbd>) haz clic en un nodo y luego en otro para unirlos.</li>
+            <li>Con <strong>Seleccionar</strong> (<kbd>V</kbd>) edita en el inspector: cota, demanda, di&aacute;metro, material, coeficiente C, tipo de fuente, geometr&iacute;a del tanque, bomba o v&aacute;lvula.</li>
+            <li>Arrastra un nodo y las tuber&iacute;as conectadas se estiran solas.</li>
+          </ol>
+          <div class="hf-note"><b>Clic derecho</b> en el plano abre <strong>&quot;Colocar punto&quot;</strong>: confirma la posici&oacute;n antes de crear el nodo.</div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-dxf">
+          <div class="hf-eyebrow">Importar</div>
+          <h2>DXF de Civil 3D / AutoCAD y mapa satelital</h2>
+          <h3>Red desde Civil 3D</h3>
+          <ol>
+            <li>En Civil 3D dibuja la red como <strong>polil&iacute;nea 3D</strong> (<code>3DPOLY</code>) con cota Z en cada v&eacute;rtice, en una capa propia. Exporta a DXF (<code>DXFOUT</code>).</li>
+            <li>En HydroFlow: <strong>Archivo &rarr; Importar de Civil 3D (DXF)</strong>, elige el archivo y la capa.</li>
+            <li>Cada v&eacute;rtice se vuelve nodo (con su cota) y cada tramo, una tuber&iacute;a con su longitud real. Los v&eacute;rtices coincidentes se fusionan.</li>
+          </ol>
+          <h3>Topograf&iacute;a de fondo y sat&eacute;lite</h3>
+          <p><strong>Archivo &rarr; Importar topograf&iacute;a AutoCAD (DXF)</strong> trae curvas/l&iacute;neas como referencia; en <strong>Ver &rarr; Capas de topograf&iacute;a</strong> eliges cu&aacute;les mostrar y encuadras. El <strong>mapa satelital</strong> muestra una imagen alineada a las coordenadas UTM de la red y permanece anclada al terreno aunque muevas un nodo.</p>
+          <div class="hf-note hf-warn"><b>Usa polil&iacute;nea 3D, no 2D.</b> Sin cotas, las presiones no ser&aacute;n correctas.</div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-fuentes">
+          <div class="hf-eyebrow">Componentes</div>
+          <h2>Fuentes, tanques y capacidad del pozo</h2>
+          <p>Una fuente es una <strong>frontera de nivel fijo</strong>. Tipos: tanque, embalse, r&iacute;o, pozo. En tanques defines la geometr&iacute;a (altura de torre, cuerpo, di&aacute;metro o lado) que se dibuja en 3D.</p>
+          <div class="hf-grid2">
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Tanque de concreto</h4><p>El predimensionado usa altura &uacute;til 3 m (m&aacute;x. 4 m) y calcula el lado de la planta por curva de masa.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>Pozo</h4><p>El reporte indica <strong>de cu&aacute;ntos gpm</strong> debe ser: la capacidad m&iacute;nima (24 h) y, seg&uacute;n las horas de bombeo, qu&eacute; capacidad comercial cumple.</p></div>
+          </div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-caudales">
+          <div class="hf-eyebrow">SANAA</div>
+          <h2>C&aacute;lculo de caudales de dise&ntilde;o</h2>
+          <p>En <strong>Analizar &rarr; C&aacute;lculo de caudales (SANAA)</strong> defines, en un solo panel: poblaci&oacute;n (o 6 hab/lote), dotaci&oacute;n por clasificaci&oacute;n (R-1 a R-5), factores K1 (1.30) y K2 (1.95), la proyecci&oacute;n de poblaci&oacute;n (a&ntilde;o base, per&iacute;odo, tasa de crecimiento), las horas de bombeo y la longitud de lance.</p>
+          <p>M&eacute;todo longitudinal: Q<sub>medio</sub> = dotaci&oacute;n &middot; Pf / 86400; caudal unitario q = Q<sub>base</sub> / &Sigma;L; la demanda de cada nodo es &frac12; de cada tuber&iacute;a que llega (el tramo desde el dep&oacute;sito va completo al nudo). Pulsa <strong>Aplicar demandas a la red</strong>.</p>
+          <div class="hf-note hf-tip"><b>Caudales de dise&ntilde;o.</b> CMD = 1.30&middot;Q<sub>med</sub> (captaci&oacute;n, conducci&oacute;n) &middot; CMH = 1.95&middot;Q<sub>med</sub> (red) &middot; CC = CMD + incendio (12.62 L/s) para la revisi&oacute;n.</div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-bombas">
+          <div class="hf-eyebrow">Equipos</div>
+          <h2>Bombas y v&aacute;lvulas</h2>
+          <p>Cualquier tuber&iacute;a puede convertirse en <strong>bomba en l&iacute;nea</strong>. El m&oacute;dulo calcula CDT = desnivel + p&eacute;rdidas + presi&oacute;n de llegada y HP = Q&middot;CDT / (76&middot;&eta;), y recomienda la potencia comercial.</p>
+          <div class="hf-tbl"><table>
+            <thead><tr><th>V&aacute;lvula</th><th>Funci&oacute;n</th><th>Consigna</th></tr></thead>
+            <tbody>
+              <tr><td>Antirretorno (check)</td><td>Cierra ante reflujo</td><td>&mdash;</td></tr>
+              <tr><td>Compuerta (gate)</td><td>Abre / cierra el tramo</td><td>&mdash;</td></tr>
+              <tr><td>Reductora (PRV)</td><td>Fija la presi&oacute;n aguas abajo</td><td>presi&oacute;n objetivo (mca)</td></tr>
+              <tr><td>Control de caudal (FCV)</td><td>Limita el caudal del tramo</td><td>caudal objetivo (L/s)</td></tr>
+            </tbody>
+          </table></div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-analisis">
+          <div class="hf-eyebrow">Resultados</div>
+          <h2>Ejecutar el an&aacute;lisis y leer las capas</h2>
+          <ol>
+            <li>Elige la capa (Presi&oacute;n, Velocidad, P&eacute;rdidas, Caudal o Cota/Demanda/Nombre).</li>
+            <li>Fija el rango m&iacute;n/m&aacute;x en la leyenda o d&eacute;jalo autom&aacute;tico; elige el mapa de color.</li>
+            <li>Pulsa <strong>Ejecutar</strong> (<kbd>F5</kbd>) para resolver y animar el flujo desde la fuente, en 2D y 3D.</li>
+            <li>Los nodos en <strong>rojo</strong> tienen presi&oacute;n negativa: no se abastecen a esa cota.</li>
+          </ol>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-superficie">
+          <div class="hf-eyebrow">Hidrolog&iacute;a</div>
+          <h2>Superficie, drenaje e hidrolog&iacute;a 2D</h2>
+          <p>Desde <strong>Superficie &rarr; An&aacute;lisis de superficie</strong>, sobre un modelo de terreno (MDT):</p>
+          <ol>
+            <li><strong>Importa la superficie</strong> (LandXML / DXF 3DFACE / ASCII Grid). Doble clic para encuadrar.</li>
+            <li><strong>Delimita la cuenca:</strong> Fill Sinks &rarr; D8 &rarr; acumulaci&oacute;n; toca el punto de salida y obtienes la cuenca con su morfometr&iacute;a.</li>
+            <li><strong>Tiempo de concentraci&oacute;n:</strong> 6 m&eacute;todos a la vez, con recomendaci&oacute;n.</li>
+            <li><strong>Tormenta de dise&ntilde;o:</strong> curva IDF y hietograma que conserva el volumen.</li>
+            <li><strong>Simulaci&oacute;n 2D</strong> (Saint-Venant): profundidad o velocidad, con infiltraci&oacute;n (Horton / Green-Ampt / SCS-CN).</li>
+            <li><strong>Perfiles y secciones:</strong> traza el perfil con clics (polil&iacute;nea) y agrega secciones; todo va al reporte.</li>
+            <li><strong>Escenarios:</strong> guarda varias corridas y se comparan en el reporte de drenaje.</li>
+          </ol>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-canales">
+          <div class="hf-eyebrow">Canales</div>
+          <h2>Dise&ntilde;o de canales abiertos (Manning)</h2>
+          <p>Desde <strong>Superficie &rarr; Dise&ntilde;o de canales</strong>. El flujo de trabajo:</p>
+          <div class="hf-flow">
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Alineamiento</h4><p>Dibuja el alineamiento sobre el terreno (traza el perfil con clics) y t&oacute;malo en el panel: se cargan longitud y cotas.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Rasante y quiebres</h4><p>Dise&ntilde;a la rasante con puntos de quiebre (PVIs): estaci&oacute;n, cota y pendiente por tramo. Se ve terreno vs. rasante en el perfil.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Secci&oacute;n y material</h4><p>Elige la forma (trapecial, rectangular, triangular, circular) y sus dimensiones; el material fija el n de Manning y la velocidad m&aacute;xima.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Caudal y verificaci&oacute;n</h4><p>Con el caudal de dise&ntilde;o se calcula por tramos: tirante, velocidad, bordo libre, Froude y cumplimiento por tramo.</p></div></div>
+            <div class="hf-step"><div class="hf-num"></div><div><h4>Informe del canal</h4><p>Documento aparte con perfil, secci&oacute;n acotada, c&aacute;lculo de Manning, verificaci&oacute;n de cumplimiento y materiales.</p></div></div>
+          </div>
+          <div class="hf-note hf-tip"><b>Verificaci&oacute;n cient&iacute;fica.</b> El canal cumple solo si todos sus tramos est&aacute;n dentro de los l&iacute;mites de velocidad y con bordo libre suficiente; se identifica el tramo cr&iacute;tico.</div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-reporte">
+          <div class="hf-eyebrow">Entregable</div>
+          <h2>Reporte / memoria de c&aacute;lculo</h2>
+          <p><strong>Archivo &rarr; Imprimir reporte</strong> (<kbd>Ctrl</kbd>+<kbd>P</kbd>) genera un documento profesional con <strong>portada</strong>, <strong>&iacute;ndice numerado</strong> (1, 1.1, &hellip;) y estas secciones:</p>
+          <div class="hf-grid2">
+            <div class="hf-mini"><h4><span class="hf-dot"></span>1&ndash;3 &middot; Bases</h4><p>Memoria descriptiva, estudio de poblaci&oacute;n y criterios de dise&ntilde;o SANAA (dotaciones, caudales CMD/CMH/CC, l&iacute;mites, di&aacute;metros m&iacute;nimos).</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>4&ndash;7 &middot; Dise&ntilde;o</h4><p>Componentes (captaci&oacute;n, conducci&oacute;n, PTAP, tanque por curva de masa, red), especificaciones de tuber&iacute;as, lista de materiales por lances y golpe de ariete.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>8&ndash;9 &middot; Resultados</h4><p>Fundamento te&oacute;rico y resultados: vista 3D, perfil, mapas por capa, c&aacute;lculo paso a paso, tablas de nodos y tuber&iacute;as, equipos.</p></div>
+            <div class="hf-mini"><h4><span class="hf-dot"></span>10&ndash;11 &middot; Cierre</h4><p>Verificaci&oacute;n de cumplimiento SANAA y observaciones autom&aacute;ticas.</p></div>
+          </div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-sanaa">
+          <div class="hf-eyebrow">Normativa</div>
+          <h2>Normas SANAA aplicadas</h2>
+          <div class="hf-tbl"><table>
+            <thead><tr><th>Variable</th><th>Valor SANAA</th></tr></thead>
+            <tbody>
+              <tr><td>Poblaci&oacute;n (sin plan regulador)</td><td>6 hab/lote</td></tr>
+              <tr><td>Dotaciones (L/hab/d)</td><td class="num">R-1 300 &middot; R-2 230 &middot; R-3 190 &middot; R-4 150 &middot; R-5 100&ndash;120</td></tr>
+              <tr><td>K1 (m&aacute;x. diario, CMD)</td><td class="num">1.30 (rango 1.2&ndash;1.5)</td></tr>
+              <tr><td>K2 (m&aacute;x. horario, CMH)</td><td class="num">1.95 (rango 1.8&ndash;2.25)</td></tr>
+              <tr><td>Incendio</td><td class="num">200 gpm = 12.62 L/s / 2 h &middot; CC = CMD + incendio</td></tr>
+              <tr><td>Velocidad</td><td class="num">0.60 a 5.0 m/s</td></tr>
+              <tr><td>Presi&oacute;n est&aacute;tica m&aacute;x.</td><td class="num">50 mca (60 en puntos aislados)</td></tr>
+              <tr><td>Presi&oacute;n din&aacute;mica m&iacute;n.</td><td class="num">15 mca (CMH) &middot; 10 mca (CC)</td></tr>
+              <tr><td>Di&aacute;metros m&iacute;nimos</td><td class="num">matriz 75 mm &middot; relleno 50 mm &middot; domiciliaria 12 mm</td></tr>
+            </tbody>
+          </table></div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-atajos">
+          <div class="hf-eyebrow">Referencia r&aacute;pida</div>
+          <h2>Atajos de teclado</h2>
+          <div class="hf-tbl"><table>
+            <thead><tr><th class="num">Atajo</th><th>Acci&oacute;n</th><th class="num">Atajo</th><th>Acci&oacute;n</th></tr></thead>
+            <tbody>
+              <tr><td class="num"><kbd>V</kbd></td><td>Seleccionar</td><td class="num"><kbd>Ctrl</kbd>+<kbd>N</kbd></td><td>Nuevo</td></tr>
+              <tr><td class="num"><kbd>N</kbd></td><td>Nodo</td><td class="num"><kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>Abrir</td></tr>
+              <tr><td class="num"><kbd>R</kbd></td><td>Fuente/Tanque</td><td class="num"><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Guardar</td></tr>
+              <tr><td class="num"><kbd>T</kbd></td><td>Tuber&iacute;a</td><td class="num"><kbd>Ctrl</kbd>+<kbd>P</kbd></td><td>Imprimir reporte</td></tr>
+              <tr><td class="num"><kbd>F5</kbd></td><td>Ejecutar / Detener</td><td class="num"><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Deshacer / Rehacer</td></tr>
+              <tr><td class="num"><kbd>Supr</kbd></td><td>Eliminar</td><td class="num"><kbd>Esc</kbd></td><td>Seleccionar / cancelar</td></tr>
+            </tbody>
+          </table></div>
+        </section>
+        <hr class="hf-divider">
+
+        <section id="hf-problemas">
+          <div class="hf-eyebrow">Ayuda</div>
+          <h2>Problemas frecuentes</h2>
+          <div class="hf-tbl"><table>
+            <thead><tr><th>S&iacute;ntoma</th><th>Causa / soluci&oacute;n</th></tr></thead>
+            <tbody>
+              <tr><td>Nodos en rojo (presi&oacute;n negativa)</td><td>La cota supera la carga disponible. Sube el tanque, baja la cota o agrega bombeo.</td></tr>
+              <tr><td>Presi&oacute;n baja (&lt;15 mca)</td><td>Aumenta el di&aacute;metro, sube el tanque o reduce p&eacute;rdidas.</td></tr>
+              <tr><td>Velocidad alta (&gt;5 m/s)</td><td>Di&aacute;metro insuficiente: increm&eacute;ntalo.</td></tr>
+              <tr><td>Ning&uacute;n pozo &quot;cumple&quot;</td><td>Tu demanda exige m&aacute;s gpm que la lista: revisa poblaci&oacute;n y dotaci&oacute;n.</td></tr>
+              <tr><td>La superficie se ve triangular</td><td>La TIN se export&oacute; sin boundary: re-exporta con boundary en Civil 3D.</td></tr>
+              <tr><td>Presiones mal tras importar</td><td>La polil&iacute;nea era 2D (sin cotas). Reimporta como polil&iacute;nea 3D.</td></tr>
+            </tbody>
+          </table></div>
+        </section>
+      </div>
+    </div>
+    </div>
+
+    <div class="hf-footer">
+      <div class="hf-wrap">
+        <span>HydroFlow Pro &mdash; Manual de uso</span>
+        <span>Redes a presi&oacute;n &middot; Hidrolog&iacute;a 2D &middot; Canales &middot; Normas SANAA</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
 if(window.location.hash) history.replaceState(null,'',window.location.pathname);
@@ -960,9 +1358,26 @@ function closeProject() {
   setTimeout(function(){ overlay.style.display = 'none'; }, 300);
   document.body.style.overflow = '';
 }
+function openHFManual() {
+  var ov = document.getElementById('hfManual');
+  ov.style.display = 'block';
+  requestAnimationFrame(function(){ ov.classList.add('active'); });
+  document.body.style.overflow = 'hidden';
+}
+function closeHFManual() {
+  var ov = document.getElementById('hfManual');
+  ov.classList.remove('active');
+  setTimeout(function(){ ov.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}
+function hfScrollTo(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeProject();
+  if (e.key === 'Escape') { closeProject(); closeHFManual(); }
 });
 
 // â”€â”€ Calculator logic â”€â”€
