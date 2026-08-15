@@ -456,21 +456,7 @@ a{color:var(--gold);text-decoration:none}
   <div class="section-inner">
     <div class="reveal"><span class="section-label">Utilidades</span><h2 class="section-title">Herramientas</h2><div class="section-rule"></div></div>
 
-    <!-- Login Form -->
-    <div class="tools-login reveal" id="toolsLogin">
-      <svg viewBox="0 0 64 64" fill="none" stroke="var(--gold)" stroke-width="1.5" style="width:48px;height:48px;opacity:.6;margin-bottom:12px"><rect x="18" y="28" width="28" height="22" rx="3"/><path d="M24 28v-6a8 8 0 0116 0v6"/><circle cx="32" cy="40" r="3"/><line x1="32" y1="43" x2="32" y2="46"/></svg>
-      <p style="color:var(--silver);font-size:14px;line-height:1.7">Acceso exclusivo para usuarios autorizados.</p>
-      <div class="tools-login-form">
-        <input type="text" id="toolsUser" placeholder="Usuario" autocomplete="off">
-        <input type="password" id="toolsPass" placeholder="Contraseña" autocomplete="off">
-        <button class="tools-login-btn" onclick="loginTools()">Ingresar</button>
-        <div class="tools-error" id="toolsError">Usuario o contraseña incorrectos</div>
-      </div>
-    </div>
-
-    <!-- Tools Panel (hidden until auth) -->
-    <div class="tools-panel" id="toolsPanel">
-      <button class="tools-logout" onclick="logoutTools()">Cerrar sesión</button>
+    <div class="reveal">
 
       <div class="calc-container">
         <!-- Mode selector -->
@@ -529,6 +515,7 @@ a{color:var(--gold);text-decoration:none}
     </div>
   </div>
 </section>
+
 <section class="section" id="documentos">
   <div class="section-inner">
     <div class="reveal"><span class="section-label">Recursos</span><h2 class="section-title">Archivos</h2><div class="section-rule"></div></div>
@@ -977,47 +964,6 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeProject();
 });
 
-// â”€â”€ Auth system (SHA-256 hash) â”€â”€
-// Default: admin / navier2026
-var TOOLS_HASH = '6a25bd85eca10537b57be977dec52e519ae556017ebc5f63737c4453976a1f3a';
-
-async function sha256(str) {
-  var buf = new TextEncoder().encode(str);
-  var hash = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(hash)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
-}
-
-async function loginTools() {
-  var user = document.getElementById('toolsUser').value.trim();
-  var pass = document.getElementById('toolsPass').value;
-  var combined = user + ':' + pass;
-  var hash = await sha256(combined);
-  if (hash === TOOLS_HASH) {
-    localStorage.setItem('navier_tools_auth', hash);
-    showToolsPanel();
-  } else {
-    document.getElementById('toolsError').style.display = 'block';
-    setTimeout(function(){ document.getElementById('toolsError').style.display = 'none'; }, 3000);
-  }
-}
-
-function logoutTools() {
-  localStorage.removeItem('navier_tools_auth');
-  document.getElementById('toolsPanel').classList.remove('active');
-  document.getElementById('toolsLogin').style.display = '';
-}
-
-function showToolsPanel() {
-  document.getElementById('toolsLogin').style.display = 'none';
-  document.getElementById('toolsPanel').classList.add('active');
-  calcInit();
-}
-
-function checkToolsAuth() {
-  var stored = localStorage.getItem('navier_tools_auth');
-  if (stored === TOOLS_HASH) showToolsPanel();
-}
-
 // â”€â”€ Calculator logic â”€â”€
 var LONGITUD = [
   {id:'m',nombre:'Metros',simbolo:'m',aBase:1},
@@ -1143,7 +1089,6 @@ function calcUpdate() {
 }
 
 // Check auth on page load
-document.addEventListener('DOMContentLoaded', function(){ checkToolsAuth(); });
-document.getElementById('toolsPass') && document.getElementById('toolsPass').addEventListener('keydown', function(e){ if(e.key==='Enter') loginTools(); });
+document.addEventListener('DOMContentLoaded', function(){ calcInit(); });
 
 </script>
