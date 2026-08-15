@@ -191,6 +191,51 @@ a{color:var(--gold);text-decoration:none}
 .calc-factor{padding:6px 10px;background:rgba(26,30,53,.5);font-family:var(--font-mono);font-size:11.5px;color:var(--silver)}
 @media(max-width:768px){.calc-factors-grid{grid-template-columns:1fr}}
 
+
+/* -- CP MANUAL MODAL -- */
+.cp-overlay{position:fixed;inset:0;z-index:300;background:rgba(8,8,26,.96);backdrop-filter:blur(16px);display:none;opacity:0;transition:opacity .4s;overflow-y:auto}
+.cp-overlay.active{display:block;opacity:1}
+.cp-close{position:fixed;top:16px;right:24px;z-index:301;background:rgba(26,30,53,.8);border:1px solid rgba(201,168,76,.15);color:var(--silver);font-size:28px;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;transition:all .3s;line-height:1}
+.cp-close:hover{color:var(--gold);border-color:rgba(201,168,76,.4)}
+.cp-body{--cp-tema:#4a7ab5;--cp-acento:#4e9e63;--cp-revit:#3a9dd6;--cp-ink:#e7eff6;--cp-muted:#93a6b6;--cp-faint:#65798a;--cp-linea:#233340;--cp-fondo:#0b141d;--cp-suave:rgba(18,31,43,.95);--cp-shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);--cp-mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,monospace;--cp-sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--cp-ink);font-family:var(--cp-sans);line-height:1.7;font-size:15px;padding-bottom:60px}
+.cp-body .cp-hoja{max-width:920px;margin:0 auto;padding:38px 34px 70px}
+.cp-body .cp-portada{background:linear-gradient(135deg,var(--cp-tema),#16293f);color:#fff;padding:52px 44px 46px;border-radius:14px;margin-bottom:34px}
+.cp-body .cp-portada .cp-eyebrow{font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;opacity:.82;font-weight:700}
+.cp-body .cp-portada h1{margin:12px 0 6px;font-size:38px;line-height:1.14;letter-spacing:-.02em;color:#fff}
+.cp-body .cp-portada .cp-sub{font-size:15.5px;opacity:.9;margin-bottom:22px}
+.cp-body .cp-portada .cp-meta{font-size:12.5px;opacity:.78;border-top:1px solid rgba(255,255,255,.25);padding-top:14px}
+.cp-body .cp-revit-hero{border:2px solid var(--cp-revit);border-radius:14px;overflow:hidden;margin:0 0 34px;background:var(--cp-suave)}
+.cp-body .cp-revit-hero .cp-cab{background:linear-gradient(135deg,#3a9dd6,#2a7ab0);color:#fff;padding:22px 26px}
+.cp-body .cp-revit-hero .cp-cab .cp-tag{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;opacity:.85}
+.cp-body .cp-revit-hero .cp-cab h2{margin:7px 0 4px;font-size:25px;letter-spacing:-.015em;color:#fff;border:none;padding:0}
+.cp-body .cp-revit-hero .cp-cab p{margin:0;font-size:13.5px;opacity:.92}
+.cp-body .cp-revit-hero .cp-cuerpo{padding:22px 26px}
+.cp-body .cp-flujo{display:flex;gap:0;align-items:stretch;flex-wrap:wrap;margin:6px 0 18px}
+.cp-body .cp-flujo .cp-paso{flex:1;min-width:150px;background:rgba(15,26,36,.95);border:1px solid var(--cp-linea);border-radius:10px;padding:13px 15px;margin:5px;text-align:center}
+.cp-body .cp-flujo .cp-paso .cp-n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--cp-revit);color:#fff;font-size:12px;font-weight:800;margin-bottom:7px}
+.cp-body .cp-flujo .cp-paso b{display:block;font-size:13px;margin-bottom:3px}
+.cp-body .cp-flujo .cp-paso span{font-size:11.5px;color:var(--cp-faint);line-height:1.5}
+.cp-body h2{font-size:22px;letter-spacing:-.015em;margin:38px 0 10px;padding-bottom:8px;border-bottom:2px solid var(--cp-linea);color:var(--cp-ink)}
+.cp-body h3{font-size:16.5px;margin:24px 0 7px;color:var(--cp-tema)}
+.cp-body h4{font-size:14px;margin:16px 0 5px;color:var(--cp-muted)}
+.cp-body p{margin:0 0 11px}
+.cp-body ul,.cp-body ol{margin:0 0 13px;padding-left:22px}
+.cp-body li{margin-bottom:5px}
+.cp-body code{background:rgba(15,26,36,.95);border:1px solid var(--cp-linea);border-radius:4px;padding:1px 6px;font-size:13px;font-family:var(--cp-mono)}
+.cp-body .cp-nota{background:rgba(15,26,36,.95);border-left:4px solid var(--cp-tema);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13.5px}
+.cp-body .cp-aviso{background:rgba(40,30,10,.5);border-left:4px solid #d99000;border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13.5px}
+.cp-body .cp-ok{background:rgba(15,36,26,.5);border-left:4px solid var(--cp-acento);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:13.5px}
+.cp-body table{width:100%;border-collapse:collapse;margin:12px 0 18px;font-size:13.5px}
+.cp-body thead tr{background:var(--cp-tema)}
+.cp-body thead th{color:#fff;text-align:left;padding:8px 11px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
+.cp-body tbody td{padding:7px 11px;border-bottom:1px solid var(--cp-linea);vertical-align:top}
+.cp-body tbody tr:nth-child(even){background:rgba(15,26,36,.5)}
+.cp-body .cp-indice{background:var(--cp-suave);border:1px solid var(--cp-linea);border-radius:12px;padding:18px 24px;margin-bottom:30px}
+.cp-body .cp-indice h2{border:none;margin:0 0 8px;font-size:15px;padding:0;text-transform:uppercase;letter-spacing:.08em;color:var(--cp-faint)}
+.cp-body .cp-indice ol{columns:2;column-gap:30px;margin:0;font-size:14px}
+.cp-body .cp-indice a{color:var(--cp-tema);text-decoration:none;cursor:pointer}
+.cp-body .cp-pie{margin-top:48px;padding-top:16px;border-top:2px solid var(--cp-linea);font-size:12px;color:var(--cp-faint);text-align:center}
+@media(max-width:600px){.cp-body .cp-indice ol{columns:1}.cp-body .cp-flujo{flex-direction:column}}
 /* -- HF MANUAL MODAL -- */
 .hf-overlay{position:fixed;inset:0;z-index:300;background:rgba(8,8,26,.96);backdrop-filter:blur(16px);display:none;opacity:0;transition:opacity .4s;overflow-y:auto}
 .hf-overlay.active{display:block;opacity:1}
@@ -478,7 +523,7 @@ a{color:var(--gold);text-decoration:none}
   <div class="section-inner">
     <div class="reveal"><span class="section-label">Tecnología</span><h2 class="section-title">Software</h2><div class="section-rule"></div></div>
     <div class="software-grid">
-      <div class="software-card reveal">
+      <div class="software-card reveal" style="cursor:pointer" onclick="openCPManual()">
         <h3>Costos y Presupuestos</h3>
         <div class="soft-sub">Gestión integral de costos de obra</div>
         <p>Software inteligente diseñado para vincularse con <strong>Autodesk Revit 2027</strong> en tiempo real. Mientras se modela el proyecto en Revit, la base de datos de costos se actualiza automáticamente, eliminando la doble digitación y reduciendo errores.</p>
@@ -493,6 +538,7 @@ a{color:var(--gold);text-decoration:none}
           <span class="soft-feat">Informes de cotización</span>
           <span class="soft-feat">Base de datos en tiempo real</span>
         </div>
+        <div style="margin-top:16px;text-align:right"><span style="color:var(--gold);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase">Ver Manual &#8594;</span></div>
       </div>
       <div class="software-card reveal" style="cursor:pointer" onclick="openHFManual()">
         <h3>HIDRO FLOW</h3>
@@ -1020,6 +1066,274 @@ a{color:var(--gold);text-decoration:none}
   </div>
 </div>
 
+
+<!-- CP MANUAL MODAL -->
+<div class="cp-overlay" id="cpManual" onclick="if(event.target===this)closeCPManual()">
+  <button class="cp-close" onclick="closeCPManual()">&times;</button>
+  <div class="cp-body">
+    <div class="cp-hoja">
+
+      <div class="cp-portada">
+        <div class="cp-eyebrow">Manual de uso &middot; Acerca de</div>
+        <h1>Costos y Presupuestos</h1>
+        <div class="cp-sub">Presupuestos de obra por fichas de actividad (an&aacute;lisis de precio unitario),
+          con v&iacute;nculo directo a Revit, cronograma autom&aacute;tico y reportes profesionales.</div>
+        <div class="cp-meta">Versi&oacute;n 1.0.0 &nbsp;&middot;&nbsp; Ing. H&eacute;ctor Medardo Henr&iacute;quez &nbsp;&middot;&nbsp; Honduras</div>
+      </div>
+
+      <div class="cp-revit-hero">
+        <div class="cp-cab">
+          <div class="cp-tag">La funci&oacute;n que lo diferencia</div>
+          <h2>Conexi&oacute;n directa con Revit</h2>
+          <p>El modelo 3D y el presupuesto trabajando como una sola cosa. Sin exportar, sin copiar, sin pegar.</p>
+        </div>
+        <div class="cp-cuerpo">
+          <p><strong>Costos y Presupuestos se conecta en vivo con Autodesk Revit.</strong> El complemento <em>CostosRevitLink</em> se instala dentro de Revit y manda las cantidades del modelo al programa <strong>en el momento en que el modelo cambia</strong>.</p>
+          <div class="cp-flujo">
+            <div class="cp-paso"><div class="cp-n">1</div><b>Model&aacute;s en Revit</b><span>Muros, columnas, losas, tuber&iacute;as: tu modelo de siempre.</span></div>
+            <div class="cp-paso"><div class="cp-n">2</div><b>El complemento lee</b><span>CostosRevitLink extrae &aacute;reas, vol&uacute;menes, longitudes y conteos.</span></div>
+            <div class="cp-paso"><div class="cp-n">3</div><b>Viaja al programa</b><span>Por conexi&oacute;n local segura, sin internet ni servidores externos.</span></div>
+            <div class="cp-paso"><div class="cp-n">4</div><b>El costo se actualiza</b><span>Las fichas vinculadas recalculan su cantidad y su precio solos.</span></div>
+          </div>
+          <h4>Qu&eacute; gana el ingeniero con esto</h4>
+          <ul>
+            <li><strong>Se acaba el error de transcripci&oacute;n.</strong> La cantidad que cuesta es exactamente la que est&aacute; modelada.</li>
+            <li><strong>Cambio de dise&ntilde;o = cambio de precio, al instante.</strong></li>
+            <li><strong>Una sola fuente de verdad.</strong> El modelo manda; el presupuesto obedece.</li>
+            <li><strong>Trazabilidad.</strong> Cada ficha vinculada recuerda de qu&eacute; elemento del modelo sali&oacute; su cantidad.</li>
+          </ul>
+          <h4>C&oacute;mo se activa</h4>
+          <ol>
+            <li>Instal&aacute; el complemento <strong>CostosRevitLink</strong> en Revit.</li>
+            <li>Abr&iacute; tu modelo en Revit y abr&iacute; <strong>Costos y Presupuestos</strong> al mismo tiempo.</li>
+            <li>En el programa entr&aacute; al apartado <strong>V&iacute;nculo con Revit</strong>.</li>
+            <li>Desde Revit, mand&aacute; los datos. Aparecen en la tabla en segundos.</li>
+            <li>Para cada fila pod&eacute;s <strong>crear una ficha nueva</strong> o <strong>aplicar la cantidad</strong> a una ficha existente.</li>
+          </ol>
+          <div class="cp-ok"><strong>Sincronizaci&oacute;n viva:</strong> mientras las dos aplicaciones est&eacute;n abiertas, cada cambio en el modelo vuelve a mandar los metrados y las fichas vinculadas se actualizan solas.</div>
+          <div class="cp-nota"><strong>C&oacute;mo viaja la informaci&oacute;n:</strong> por una conexi&oacute;n local dentro de tu propia computadora (<code>127.0.0.1</code>). Los datos <strong>no salen de tu equipo</strong>.</div>
+          <div class="cp-aviso"><strong>Requisitos:</strong> Autodesk Revit 2027 y el complemento CostosRevitLink instalado. Sin Revit, el programa funciona igual en todo lo dem&aacute;s.</div>
+        </div>
+      </div>
+
+      <div class="cp-indice">
+        <h2>Contenido</h2>
+        <ol>
+          <li><a onclick="cpScrollTo('cp-quees')">Qu&eacute; es el programa</a></li>
+          <li><a onclick="cpScrollTo('cp-empezar')">C&oacute;mo empezar</a></li>
+          <li><a onclick="cpScrollTo('cp-fichas')">Fichas de actividad (APU)</a></li>
+          <li><a onclick="cpScrollTo('cp-catalogo')">Cat&aacute;logo de precios</a></li>
+          <li><a onclick="cpScrollTo('cp-cronograma')">Cronograma</a></li>
+          <li><a onclick="cpScrollTo('cp-control')">Control de Obra</a></li>
+          <li><a onclick="cpScrollTo('cp-reportes')">Reportes</a></li>
+          <li><a onclick="cpScrollTo('cp-licitaciones')">Licitaciones</a></li>
+          <li><a onclick="cpScrollTo('cp-archivos')">Archivos y respaldos</a></li>
+          <li><a onclick="cpScrollTo('cp-atajos')">Atajos y herramientas</a></li>
+          <li><a onclick="cpScrollTo('cp-licencia')">Licencia</a></li>
+          <li><a onclick="cpScrollTo('cp-problemas')">Problemas frecuentes</a></li>
+        </ol>
+      </div>
+
+      <h2 id="cp-quees">1 &middot; Qu&eacute; es el programa</h2>
+      <p><strong>Costos y Presupuestos</strong> es un programa de escritorio para elaborar presupuestos de obra con el m&eacute;todo de <strong>fichas de actividad</strong> (an&aacute;lisis de precio unitario): cada actividad se descompone en materiales, mano de obra y herramienta, con sus rendimientos, y de ah&iacute; sale el precio unitario y el total.</p>
+      <p>Trabaja <strong>sin internet</strong>. Todo se guarda en tu computadora.</p>
+      <table>
+        <thead><tr><th>Apartado</th><th>Para qu&eacute; sirve</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Fichas</strong></td><td>Armar el an&aacute;lisis de precio unitario de cada actividad.</td></tr>
+          <tr><td><strong>Cat&aacute;logo</strong></td><td>Precios de materiales, mano de obra y equipo. Base de 2,700+ insumos.</td></tr>
+          <tr><td><strong>Cronograma</strong></td><td>Programaci&oacute;n de obra autom&aacute;tica con diagrama de Gantt y ruta cr&iacute;tica.</td></tr>
+          <tr><td><strong>Control de Obra</strong></td><td>Avance real, gastos y comparaci&oacute;n contra lo presupuestado.</td></tr>
+          <tr><td><strong>Reportes</strong></td><td>Seis informes imprimibles, con dise&ntilde;o configurable.</td></tr>
+          <tr><td><strong>Licitaciones</strong></td><td>Documentos completos de oferta para procesos licitatorios.</td></tr>
+          <tr><td><strong>V&iacute;nculo con Revit</strong></td><td>Cantidades del modelo 3D directo al presupuesto.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="cp-empezar">2 &middot; C&oacute;mo empezar</h2>
+      <ol>
+        <li>Abr&iacute; el programa y hac&eacute; clic en <strong>+ Nuevo proyecto</strong>.</li>
+        <li>Entr&aacute; a <strong>Archivo &rarr; Datos del proyecto</strong> y llen&aacute;: nombre de la obra, cliente, ubicaci&oacute;n, ingeniero responsable, n&uacute;mero de colegiaci&oacute;n (CICH), fecha y logo.</li>
+        <li>Cre&aacute; tus <strong>actividades (fases)</strong> y dentro de ellas tus <strong>fichas</strong>.</li>
+        <li>Revis&aacute; los precios en el <strong>Cat&aacute;logo</strong>.</li>
+        <li>Pon&eacute; las <strong>cantidades de obra</strong> de cada ficha (a mano o desde Revit).</li>
+        <li>Imprim&iacute; desde <strong>Reportes</strong>.</li>
+      </ol>
+      <div class="cp-nota">El programa <strong>no guarda solo</strong>. Cuando veas el punto naranja <strong>&quot;sin guardar&quot;</strong> arriba, apret&aacute; <strong>Guardar</strong>.</div>
+
+      <h2 id="cp-fichas">3 &middot; Fichas de actividad (APU)</h2>
+      <p>Una ficha es el an&aacute;lisis de una actividad: qu&eacute; lleva y cu&aacute;nto cuesta hacer <strong>una unidad</strong> de ella.</p>
+      <h3>Crear fichas</h3>
+      <ul>
+        <li><strong>+ Actividad</strong> &mdash; crea una fase (PRELIMINARES, CIMENTACI&Oacute;N&hellip;). Las fichas se numeran 1, 1.1, 1.2&hellip;</li>
+        <li><strong>+ Ficha suelta</strong> &mdash; una ficha sin fase.</li>
+        <li><strong>Biblioteca</strong> &mdash; importa desde el <strong>Manual de Rendimientos FHIS</strong> (1,180 actividades ya armadas).</li>
+        <li><strong>Plantillas</strong> &mdash; guard&aacute; tus propias fichas para reutilizarlas en otros proyectos.</li>
+      </ul>
+      <h3>Partes de una ficha</h3>
+      <table>
+        <thead><tr><th>Campo</th><th>Qu&eacute; significa</th></tr></thead>
+        <tbody>
+          <tr><td>C&oacute;digo / Nombre</td><td>Identifican la actividad en todos los reportes.</td></tr>
+          <tr><td>Unidad</td><td>C&oacute;mo se mide: M2, M3, ML, UND&hellip;</td></tr>
+          <tr><td>Cantidad de obra</td><td>Cu&aacute;nto hay que hacer. Acepta operaciones: escrib&iacute; <code>=3.5*12</code>.</td></tr>
+          <tr><td>Materiales</td><td>Insumo, rendimiento por unidad y % de desperdicio.</td></tr>
+          <tr><td>Mano de obra</td><td>Rendimiento en <strong>JDR</strong> (jornales por unidad). De aqu&iacute; sale la duraci&oacute;n en el cronograma.</td></tr>
+          <tr><td>Herramienta y equipo</td><td>Equipo, o herramienta menor como % de la mano de obra.</td></tr>
+        </tbody>
+      </table>
+      <div class="cp-nota"><strong>Rendimiento:</strong> cu&aacute;nto insumo se necesita por <em>una</em> unidad. Si un M&sup2; de repello lleva 0.25 bolsas de cemento, el rendimiento es 0.25. El <strong>desperdicio</strong> se suma encima: 5% sobre 0.25 da 0.2625.</div>
+
+      <h2 id="cp-catalogo">4 &middot; Cat&aacute;logo de precios</h2>
+      <p>El precio de cada insumo <strong>se define una sola vez</strong> aqu&iacute; y se usa en todas las fichas. Si sube el cemento, lo cambi&aacute;s en un lugar y todo el presupuesto se recalcula.</p>
+      <h3>Las dos vistas</h3>
+      <ul>
+        <li><strong>En uso</strong> &mdash; solo los insumos que aparecen en tus fichas.</li>
+        <li><strong>Base de datos</strong> &mdash; los m&aacute;s de 2,700 insumos disponibles.</li>
+      </ul>
+      <h3>C&oacute;mo se clasifican</h3>
+      <table>
+        <thead><tr><th>Prefijo</th><th>Tipo</th></tr></thead>
+        <tbody>
+          <tr><td><code>MI</code> / <code>MN</code></td><td>Materiales</td></tr>
+          <tr><td><code>OC</code> / <code>ON</code></td><td>Mano de obra</td></tr>
+          <tr><td><code>HE</code> / <code>HM</code></td><td>Herramienta y equipo</td></tr>
+        </tbody>
+      </table>
+      <h3>Llevar precios de un proyecto a otro</h3>
+      <ul>
+        <li><strong>Exportar insumos</strong> &mdash; guarda los insumos en uso en un archivo <code>.cphmat</code>.</li>
+        <li><strong>Importar insumos</strong> &mdash; los carga en otro proyecto. Los que ya existen se actualizan; los nuevos se agregan.</li>
+      </ul>
+      <div class="cp-aviso"><strong>Precios viejos:</strong> el programa marca en naranja los precios con m&aacute;s de 60 d&iacute;as sin actualizar. Revisalos antes de entregar una oferta.</div>
+
+      <h2 id="cp-cronograma">5 &middot; Cronograma</h2>
+      <p>La programaci&oacute;n se calcula <strong>sola</strong> a partir del presupuesto. No hay que escribir fechas ni duraciones.</p>
+      <h3>De d&oacute;nde sale la duraci&oacute;n</h3>
+      <div class="cp-nota" style="text-align:center;font-size:15px"><strong>jornales = rendimiento JDR &times; cantidad de obra</strong><br><strong>d&iacute;as = jornales &divide; cuadrillas</strong></div>
+      <h3>Modo de cada actividad</h3>
+      <ul>
+        <li><strong>Auto</strong> (recomendado) &mdash; el programa calcula duraci&oacute;n y fechas.</li>
+        <li><strong>Manual</strong> &mdash; vos pon&eacute;s las horas y/o una fecha fija.</li>
+        <li><strong>Hito</strong> &mdash; evento de duraci&oacute;n cero. Sale como rombo en el Gantt.</li>
+      </ul>
+      <h3>Dependencias entre actividades</h3>
+      <table>
+        <thead><tr><th>Tipo</th><th>Significa</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>FS</strong></td><td>Fin &rarr; Inicio</td><td>Repello despu&eacute;s de levantar la pared.</td></tr>
+          <tr><td><strong>SS</strong></td><td>Inicio &rarr; Inicio</td><td>Excavaci&oacute;n y acarreo del material.</td></tr>
+          <tr><td><strong>FF</strong></td><td>Fin &rarr; Fin</td><td>Instalaciones y acabado del cielo falso.</td></tr>
+          <tr><td><strong>SF</strong></td><td>Inicio &rarr; Fin</td><td>Apuntalamiento hasta que arranca el desencofrado.</td></tr>
+        </tbody>
+      </table>
+      <p>La columna <strong>Espera</strong> agrega d&iacute;as laborables extra despu&eacute;s del predecesor.</p>
+      <h3>Ruta cr&iacute;tica</h3>
+      <p>El programa calcula la <strong>holgura</strong> de cada actividad. Las que tienen holgura cero son <strong>CR&Iacute;TICAS</strong>: si se atrasan, se atrasa toda la obra. Salen marcadas en rojo.</p>
+
+      <h2 id="cp-control">6 &middot; Control de Obra</h2>
+      <p>Para cuando la obra ya arranc&oacute;: comparar lo presupuestado contra lo que est&aacute; pasando de verdad.</p>
+      <ul>
+        <li><strong>Avance</strong> &mdash; cu&aacute;nto se ha ejecutado de cada actividad.</li>
+        <li><strong>Gastos reales</strong> &mdash; compras y planillas, contra lo presupuestado.</li>
+        <li><strong>Alertas</strong> &mdash; actividades atrasadas y partidas que se pasaron de presupuesto.</li>
+        <li><strong>Gr&aacute;ficas</strong> &mdash; avance f&iacute;sico contra avance financiero.</li>
+      </ul>
+
+      <h2 id="cp-reportes">7 &middot; Reportes</h2>
+      <table>
+        <thead><tr><th>Reporte</th><th>Qu&eacute; muestra</th></tr></thead>
+        <tbody>
+          <tr><td>Por ficha (desglosado)</td><td>Cada actividad con todos sus insumos, rendimientos y costos.</td></tr>
+          <tr><td>Por ficha con total por insumo</td><td>Igual, con el total de cada insumo.</td></tr>
+          <tr><td>Por materiales (sumados)</td><td>Todo lo que hay que comprar en la obra, sumado.</td></tr>
+          <tr><td>Insumos para cotizar</td><td>Lista sin precios, para pedir cotizaciones a proveedores.</td></tr>
+          <tr><td>Global por actividad</td><td>Resumen ejecutivo con &iacute;tem, cantidades, precios unitarios y totales.</td></tr>
+          <tr><td>Hoja de licitaci&oacute;n</td><td>Cantidades de obra con precios en blanco.</td></tr>
+        </tbody>
+      </table>
+      <h3>Dise&ntilde;o configurable</h3>
+      <ul>
+        <li><strong>Portada</strong> &mdash; varios dise&ntilde;os, incluidos los de color s&oacute;lido.</li>
+        <li><strong>Color por reporte</strong> &mdash; cada informe con su color, o &quot;Aplicar a todos&quot;.</li>
+        <li><strong>Estilo de textos</strong> &mdash; color, negrita, cursiva, tama&ntilde;o y MAY&Uacute;SCULAS/min&uacute;sculas para cada campo.</li>
+        <li><strong>Factores</strong> &mdash; gastos administrativos, imprevistos y utilidad para el precio de venta.</li>
+      </ul>
+
+      <h2 id="cp-licitaciones">8 &middot; Licitaciones</h2>
+      <p>Genera el expediente de oferta completo, listo para presentar:</p>
+      <ol>
+        <li><strong>Formulario de oferta</strong> &mdash; datos del proceso, declaraci&oacute;n de oferta e informaci&oacute;n econ&oacute;mica con firmas.</li>
+        <li><strong>Cuadro de cantidades</strong> &mdash; cap&iacute;tulos, partidas e &iacute;tems con subtotales y % del total.</li>
+        <li><strong>Presupuesto detallado</strong> &mdash; fichas con costo directo, indirectos, utilidad y precio unitario final.</li>
+        <li><strong>Resumen econ&oacute;mico</strong> &mdash; resumen por cap&iacute;tulos y cuadro econ&oacute;mico final.</li>
+        <li><strong>Integraci&oacute;n de costos</strong> &mdash; metodolog&iacute;a, gr&aacute;fica de distribuci&oacute;n y fuentes de precios.</li>
+        <li><strong>Carta de desglose y condiciones</strong> &mdash; garant&iacute;as, declaraci&oacute;n bajo fe de juramento y firmas.</li>
+      </ol>
+      <div class="cp-aviso">Este apartado est&aacute; <strong>protegido con c&oacute;digo</strong>. Se pide al entrar y el acceso dura hasta que se cierre el programa.</div>
+
+      <h2 id="cp-archivos">9 &middot; Archivos y respaldos</h2>
+      <table>
+        <thead><tr><th>Extensi&oacute;n</th><th>Qu&eacute; contiene</th></tr></thead>
+        <tbody>
+          <tr><td><code>.cph</code></td><td>Proyecto completo: fichas, cat&aacute;logo, cronograma, control, licitaci&oacute;n y configuraci&oacute;n.</td></tr>
+          <tr><td><code>.cphmat</code></td><td>Solo insumos: c&oacute;digo, nombre, unidad y precio.</td></tr>
+          <tr><td><code>.xlsx</code></td><td>Exportaci&oacute;n a Excel del presupuesto.</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><strong>Guardar como (copia)</strong> &mdash; duplica el proyecto con otro nombre.</li>
+        <li><strong>Respaldo autom&aacute;tico</strong> &mdash; eleg&iacute;s una carpeta y cada vez que guard&aacute;s se deja ah&iacute; una copia <code>.cph</code>.</li>
+      </ul>
+      <div class="cp-aviso"><strong>Hac&eacute; respaldos.</strong> Un presupuesto es semanas de trabajo. Activ&aacute; el respaldo autom&aacute;tico a una carpeta de nube.</div>
+
+      <h2 id="cp-atajos">10 &middot; Atajos y herramientas</h2>
+      <table>
+        <thead><tr><th>Atajo</th><th>Acci&oacute;n</th></tr></thead>
+        <tbody>
+          <tr><td><code>Ctrl + Z</code></td><td>Deshacer</td></tr>
+          <tr><td><code>Ctrl + Y</code></td><td>Rehacer</td></tr>
+          <tr><td><code>Ctrl + P</code></td><td>Imprimir</td></tr>
+          <tr><td><code>F11</code></td><td>Modo presentaci&oacute;n (pantalla limpia, letra grande)</td></tr>
+          <tr><td>Clic derecho</td><td>Men&uacute; con opciones sobre fichas e insumos</td></tr>
+        </tbody>
+      </table>
+      <p>Adem&aacute;s: <strong>Calculadora</strong> flotante, <strong>Convertidor</strong> de unidades, <strong>Ver en US$</strong>, <strong>modo oscuro</strong> y <strong>Colores de la app</strong>.</p>
+
+      <h2 id="cp-licencia">11 &middot; Licencia</h2>
+      <p>El programa trae un <strong>per&iacute;odo de prueba</strong>. Cuando termina, hay que activarlo con un c&oacute;digo.</p>
+      <ol>
+        <li>Entr&aacute; a <strong>Archivo &rarr; Licencia</strong>.</li>
+        <li>Copi&aacute; el <strong>ID de m&aacute;quina</strong>.</li>
+        <li>Mand&aacute;selo al desarrollador para que te genere tu c&oacute;digo.</li>
+        <li>Ingres&aacute; el c&oacute;digo. Queda activado en esa computadora.</li>
+      </ol>
+      <div class="cp-nota">El c&oacute;digo es <strong>&uacute;nico para cada computadora</strong>: se genera a partir del ID de m&aacute;quina.</div>
+
+      <h2 id="cp-problemas">12 &middot; Problemas frecuentes</h2>
+      <h4>Revit no manda los datos</h4>
+      <ul>
+        <li>&iquest;Est&aacute;n <strong>las dos aplicaciones abiertas</strong> al mismo tiempo?</li>
+        <li>&iquest;El complemento <strong>CostosRevitLink</strong> est&aacute; instalado y visible en Revit?</li>
+        <li>Si el firewall de Windows pregunt&oacute; por permisos, hay que <strong>permitir</strong> la conexi&oacute;n local.</li>
+      </ul>
+      <h4>Los colores no salen al imprimir</h4>
+      <p>En la ventana de impresi&oacute;n, activ&aacute; <strong>&quot;Gr&aacute;ficos de fondo&quot;</strong>.</p>
+      <h4>Una ficha da costo cero</h4>
+      <p>Revis&aacute; que los insumos tengan <strong>precio</strong> en el cat&aacute;logo y que la ficha tenga <strong>cantidad de obra</strong>.</p>
+      <h4>El cronograma da un d&iacute;a en todo</h4>
+      <p>Las fichas no tienen <strong>mano de obra con rendimiento</strong>, o la cantidad de obra est&aacute; en cero.</p>
+
+      <div class="cp-pie">
+        <strong>Costos y Presupuestos</strong> &middot; Versi&oacute;n 1.0.0<br>
+        Ing. H&eacute;ctor Medardo Henr&iacute;quez &middot; Honduras<br>
+        &copy; 2026 H&eacute;ctor Henr&iacute;quez. Todos los derechos reservados.
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
 if(window.location.hash) history.replaceState(null,'',window.location.pathname);
@@ -1372,12 +1686,29 @@ function closeHFManual() {
 }
 function hfScrollTo(id) {
   var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }
+function openCPManual() {
+  var ov = document.getElementById('cpManual');
+  ov.style.display = 'block';
+  requestAnimationFrame(function(){ ov.classList.add('active'); });
+  document.body.style.overflow = 'hidden';
+}
+function closeCPManual() {
+  var ov = document.getElementById('cpManual');
+  ov.classList.remove('active');
+  setTimeout(function(){ ov.style.display = 'none'; }, 400);
+  document.body.style.overflow = '';
+}
+function cpScrollTo(id) {
+  var el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+);
 }
 
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeProject(); closeHFManual(); }
+  if (e.key === 'Escape') { closeProject(); closeHFManual(); closeCPManual(); }
 });
 
 // â”€â”€ Calculator logic â”€â”€
