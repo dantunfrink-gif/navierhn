@@ -1686,7 +1686,8 @@ function closeHFManual() {
 }
 function hfScrollTo(id) {
   var el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 function openCPManual() {
   var ov = document.getElementById('cpManual');
   ov.style.display = 'block';
@@ -1702,8 +1703,6 @@ function closeCPManual() {
 function cpScrollTo(id) {
   var el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-);
 }
 
 
