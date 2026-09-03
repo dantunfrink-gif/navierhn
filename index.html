@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>NAVIER | Ingeniería que Construye el Futuro</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -1425,22 +1425,22 @@ function drawMesh(t){
     const lo=b/bands, hi=(b+1)/bands, mid=(lo+hi)/2;
     const baseW=isMobile?(0.5+mid*1.2):(1.2+mid*2.8);
     const baseA=isMobile?(0.06+mid*0.16):(0.12+mid*0.30);
-    const refl=0.5+0.5*Math.sin(mid*4+t*0.3);
-    const sr=Math.floor(140+refl*115), sg=Math.floor(110+refl*100), sb=Math.floor(40+refl*80);
-    const hr=Math.floor(220+refl*35), hg=Math.floor(195+refl*45), hb=Math.floor(100+refl*60);
+    const refl=0.65+0.35*Math.sin(mid*4+t*0.3);
+    const sr=Math.floor(150+refl*105), sg=Math.floor(120+refl*90), sb=Math.floor(50+refl*70);
+    const hr=Math.floor(225+refl*30), hg=Math.floor(200+refl*40), hb=Math.floor(110+refl*50);
     const path=new Path2D();
     for(const[ea,eb]of mEdges){
       const pa=mProj[ea],pb=mProj[eb];
       if((pa.dp+pb.dp)/2<lo||(pa.dp+pb.dp)/2>=hi) continue;
       path.moveTo(pa.x,pa.y); path.lineTo(pb.x,pb.y);
     }
-    mCtx.strokeStyle=`rgba(${sr>>2},${sg>>2},${sb>>2},${baseA*0.6})`;
+    mCtx.strokeStyle=`rgba(${sr>>2},${sg>>2},${sb>>2},${baseA*0.7})`;
     mCtx.lineWidth=baseW;
     mCtx.stroke(path);
-    mCtx.strokeStyle=`rgba(${sr},${sg},${sb},${baseA*(0.5+refl*0.3)})`;
+    mCtx.strokeStyle=`rgba(${sr},${sg},${sb},${baseA*(0.55+refl*0.25)})`;
     mCtx.lineWidth=baseW*0.55;
     mCtx.stroke(path);
-    mCtx.strokeStyle=`rgba(${hr},${hg},${hb},${baseA*(0.3+refl*0.35)})`;
+    mCtx.strokeStyle=`rgba(${hr},${hg},${hb},${baseA*(0.35+refl*0.3)})`;
     mCtx.lineWidth=baseW*0.18;
     mCtx.stroke(path);
   }
@@ -1448,8 +1448,8 @@ function drawMesh(t){
   for(let b=0;b<bands;b++){
     const lo=b/bands, hi=(b+1)/bands, mid=(lo+hi)/2;
     const na=isMobile?(0.06+mid*0.16):(0.10+mid*0.28), nr=isMobile?(0.4+mid*1.2):(0.8+mid*2.5);
-    const nrefl=0.5+0.5*Math.sin(mid*4+t*0.3);
-    mCtx.fillStyle=`rgba(${Math.floor(200+nrefl*40)},${Math.floor(165+nrefl*30)},${Math.floor(100+nrefl*40)},${na*(0.7+nrefl*0.3)})`;
+    const nrefl=0.65+0.35*Math.sin(mid*4+t*0.3);
+    mCtx.fillStyle=`rgba(${Math.floor(210+nrefl*35)},${Math.floor(175+nrefl*25)},${Math.floor(110+nrefl*35)},${na*(0.75+nrefl*0.25)})`;
     mCtx.beginPath();
     for(let i=0;i<mPts.length;i++){
       const p=mProj[i];
