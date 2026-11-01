@@ -315,8 +315,20 @@ a{color:var(--gold);text-decoration:none}
 .project-modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--silver);font-size:28px;cursor:pointer;z-index:201;line-height:1;transition:color .3s}
 .project-modal-close:hover{color:var(--gold)}
 .project-modal-content{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
-.project-modal-img{overflow:hidden}
+.project-modal-img{overflow:hidden;position:relative}
 .project-modal-img img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery-wrap{position:relative;width:100%;height:100%;min-height:300px}
+.gallery-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+.gallery-wrap img.active{opacity:1;position:relative}
+.gallery-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,13,26,.7);border:1px solid rgba(201,168,76,.2);color:var(--gold);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;z-index:5;transition:background .3s}
+.gallery-nav:hover{background:rgba(201,168,76,.15)}
+.gallery-prev{left:8px}
+.gallery-next{right:8px}
+.gallery-counter{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:10px;color:var(--silver);background:rgba(13,13,26,.7);padding:3px 12px;letter-spacing:.1em;z-index:5}
+.gallery-caption{font-family:var(--font-mono);font-size:11px;color:var(--silver);line-height:1.5;padding:10px 0 0;border-top:1px solid rgba(201,168,76,.08);margin-top:12px}
+.gallery-dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
+.gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);cursor:pointer;transition:background .3s}
+.gallery-dot.active{background:var(--gold)}
 .project-modal-info{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:center}
 .project-modal-info h2{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);letter-spacing:.1em;color:var(--white);margin-bottom:6px}
 .project-modal-info .modal-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
@@ -763,13 +775,15 @@ a{color:var(--gold);text-decoration:none}
   <div class="project-modal">
     <button class="project-modal-close" onclick="closeProject()">&times;</button>
     <div class="project-modal-content">
-      <div class="project-modal-img"><img id="modalImg" src="" alt=""></div>
+      <div class="project-modal-img" id="modalImgWrap"><img id="modalImg" src="" alt=""></div>
       <div class="project-modal-info">
         <span class="modal-tag" id="modalTag"></span>
         <h2 id="modalTitle"></h2>
         <div class="modal-location" id="modalLocation"></div>
         <div class="modal-desc" id="modalDesc"></div>
         <div class="modal-specs" id="modalSpecs"></div>
+        <div class="gallery-caption" id="modalCaption" style="display:none"></div>
+        <div class="gallery-dots" id="modalDots"></div>
       </div>
     </div>
   </div>
@@ -1661,8 +1675,18 @@ var projectData = [
     title: 'Planta Hidropónica Agro Futuro',
     tag: 'Infraestructura Agroindustrial',
     location: 'San Marcos de Colón, Choluteca',
-    desc: 'Consultoría integral para el complejo agroindustrial de invernaderos hidropónicos de Agro Futuro, ejecutado como consultor externo para TECMIN. El alcance abarcó diseño hidrológico y análisis de escorrentías pluviales, diseño y excavación de canales de conducción (secciones rectangulares y trapezoidales), obras lineales de drenaje pluvial con tuberías HDPE de doble pared, diseño del sistema de aguas residuales con pozos de inspección, redes de tubería por gravedad y planta de tratamiento de aguas residuales. Se realizó supervisión de obra, control de ejecución y verificación de pendientes hidráulicas en campo. Incluye diseño de estructuras disipadoras de energía en concreto reforzado y colocación de geomembranas de impermeabilización.',
-    specs: ['Canales Rectangulares y Trapezoidales', 'Análisis de Escorrentías', 'PTAR', 'Tuberías HDPE por Gravedad', 'Geomembranas', 'Diseño Pluvial', 'Supervisión de Obra']
+    desc: 'Consultoría integral para el complejo agroindustrial de invernaderos hidropónicos de Agro Futuro, ejecutado como consultor externo para TECMIN. El alcance abarcó diseño hidrológico y análisis de escorrentías pluviales, diseño y excavación de canales de conducción (secciones rectangulares y trapezoidales), obras lineales de drenaje pluvial con tuberías HDPE de doble pared, diseño del sistema de aguas residuales con pozos de inspección, redes de tubería por gravedad y planta de tratamiento de aguas residuales. Incluye diseño de cajas puente, cajas especiales reductoras, estructuras disipadoras de energía en concreto reforzado y colocación de geomembranas de impermeabilización.',
+    specs: ['Canales Trapezoidales', 'Cajas Puente', 'Cajas Reductoras', 'PTAR', 'Tuberías HDPE', 'Geomembranas', 'Diseño Pluvial', 'Supervisión de Obra'],
+    gallery: [
+      {src:'img/agrofuturo-1.jpg', caption:'Instalación de geomembrana de impermeabilización HDPE y tubería corrugada de doble pared para sistema de drenaje pluvial en talud perimetral del complejo.'},
+      {src:'img/agrofuturo-2.jpg', caption:'Armado de acero de refuerzo y encofrado de madera para canal de conducción rectangular. Se observa la estructura metálica de los invernaderos y geomembrana de protección en talud adyacente.'},
+      {src:'img/agrofuturo-3.jpg', caption:'Vista en perspectiva del encofrado y armadura de acero del canal rectangular de conducción pluvial, con esperas verticales para muros y cama de grava como sub-base.'},
+      {src:'img/agrofuturo-4.jpg', caption:'Estructura disipadora de energía escalonada en concreto reforzado para control de velocidad de flujo en canales de descarga pluvial.'},
+      {src:'img/agrofuturo-5.webp', caption:'Canal trapezoidal curvo construido en mampostería de bloques de concreto con verificación de nivel. Diseño hidráulico para conducción de escorrentías dentro del complejo de invernaderos.'},
+      {src:'img/agrofuturo-6.webp', caption:'Excavación y conformación de canal trapezoidal en concreto con sección variable. Trabajos de repello y acabado fino en paredes y fondo del canal, con estructuras de invernadero al fondo.'},
+      {src:'img/agrofuturo-7.webp', caption:'Caja puente de inspección en concreto reforzado con tapa removible y abertura de acceso. Estructura de transición y conexión entre tramos de tubería del sistema de aguas residuales.'},
+      {src:'img/agrofuturo-8.webp', caption:'Caja especial reductora de concreto reforzado con doble abertura y tubería de conexión visible. Permite la inspección, cambio de dirección y reducción de sección en el sistema de alcantarillado sanitario.'}
+    ]
   },
   {
     title: 'Casa Los Mangos',
@@ -1722,10 +1746,16 @@ var projectData = [
   }
 ];
 
+var galleryIdx = 0;
+var galleryData = [];
+
 function openProject(idx) {
   var d = projectData[idx];
   var cards = document.querySelectorAll('.project-card img');
-  document.getElementById('modalImg').src = cards[idx].src;
+  var wrap = document.getElementById('modalImgWrap');
+  var caption = document.getElementById('modalCaption');
+  var dots = document.getElementById('modalDots');
+
   document.getElementById('modalTitle').textContent = d.title;
   document.getElementById('modalTag').textContent = d.tag;
   document.getElementById('modalLocation').textContent = d.location;
@@ -1733,10 +1763,53 @@ function openProject(idx) {
   var specsHTML = '';
   d.specs.forEach(function(s){ specsHTML += '<span class="modal-spec">' + s + '</span>'; });
   document.getElementById('modalSpecs').innerHTML = specsHTML;
+
+  if (d.gallery && d.gallery.length > 0) {
+    galleryData = d.gallery;
+    galleryIdx = 0;
+    var gHTML = '<div class="gallery-wrap">';
+    d.gallery.forEach(function(g, i) {
+      gHTML += '<img src="' + g.src + '" alt="' + d.title + ' ' + (i+1) + '" class="' + (i===0?'active':'') + '">';
+    });
+    gHTML += '</div>';
+    gHTML += '<button class="gallery-nav gallery-prev" onclick="event.stopPropagation();galleryGo(-1)">&#8249;</button>';
+    gHTML += '<button class="gallery-nav gallery-next" onclick="event.stopPropagation();galleryGo(1)">&#8250;</button>';
+    gHTML += '<span class="gallery-counter" id="galCounter">1 / ' + d.gallery.length + '</span>';
+    wrap.innerHTML = gHTML;
+    caption.style.display = 'block';
+    caption.textContent = d.gallery[0].caption;
+    var dotsHTML = '';
+    d.gallery.forEach(function(g, i) {
+      dotsHTML += '<span class="gallery-dot' + (i===0?' active':'') + '" onclick="event.stopPropagation();gallerySet(' + i + ')"></span>';
+    });
+    dots.innerHTML = dotsHTML;
+  } else {
+    galleryData = [];
+    wrap.innerHTML = '<img id="modalImg" src="' + cards[idx].src + '" alt="" style="width:100%;height:100%;object-fit:cover;display:block">';
+    caption.style.display = 'none';
+    dots.innerHTML = '';
+  }
+
   var overlay = document.getElementById('projectModal');
   overlay.style.display = 'flex';
   requestAnimationFrame(function(){ overlay.classList.add('active'); });
   document.body.style.overflow = 'hidden';
+}
+
+function galleryGo(dir) {
+  if (!galleryData.length) return;
+  galleryIdx = (galleryIdx + dir + galleryData.length) % galleryData.length;
+  gallerySet(galleryIdx);
+}
+
+function gallerySet(i) {
+  galleryIdx = i;
+  var imgs = document.querySelectorAll('.gallery-wrap img');
+  imgs.forEach(function(img, j) { img.classList.toggle('active', j === i); });
+  document.getElementById('galCounter').textContent = (i+1) + ' / ' + galleryData.length;
+  document.getElementById('modalCaption').textContent = galleryData[i].caption;
+  var allDots = document.querySelectorAll('.gallery-dot');
+  allDots.forEach(function(dot, j) { dot.classList.toggle('active', j === i); });
 }
 
 function closeProject() {
