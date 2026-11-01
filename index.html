@@ -132,6 +132,7 @@ a{color:var(--gold);text-decoration:none}
 .project-card:hover{border-color:rgba(201,168,76,.15)}
 .project-thumb{height:180px;position:relative;overflow:hidden}
 .project-thumb .bg{position:absolute;inset:0;transition:transform .6s}
+.project-thumb img{transition:opacity .3s}
 .project-card:hover .bg{transform:scale(1.04)}
 .project-info{padding:clamp(14px,1.5vw,20px)}
 .project-info h3{font-family:var(--font-display);font-size:13px;letter-spacing:.1em;color:var(--white);margin-bottom:4px}
@@ -329,6 +330,34 @@ a{color:var(--gold);text-decoration:none}
 .gallery-dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
 .gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);cursor:pointer;transition:background .3s}
 .gallery-dot.active{background:var(--gold)}
+/* -- PLANS SLIDESHOW -- */
+.plans-section{display:none;grid-column:1/-1;border-top:1px solid rgba(201,168,76,.1);padding:clamp(20px,3vw,36px)}
+.plans-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.plans-header h3{font-family:var(--font-display);font-size:clamp(13px,1.4vw,17px);letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin:0}
+.plans-header .plans-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.2),transparent)}
+.plans-viewer{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:320px;border:1px solid rgba(201,168,76,.08);background:rgba(13,13,26,.4)}
+.plans-img-wrap{position:relative;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;min-height:320px}
+.plans-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .6s;padding:8px;background:#fff}
+.plans-img-wrap img.active{opacity:1;position:relative}
+.plans-info-panel{padding:clamp(16px,2vw,28px);display:flex;flex-direction:column;justify-content:center}
+.plans-category-badge{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:3px 10px;display:inline-block;margin-bottom:12px;align-self:flex-start}
+.plans-caption-text{font-family:var(--font-mono);font-size:11px;color:var(--silver);line-height:1.7;margin-bottom:16px}
+.plans-counter{font-family:var(--font-mono);font-size:10px;color:var(--gold-dim);letter-spacing:.1em;margin-bottom:10px}
+.plans-nav-row{display:flex;align-items:center;gap:8px;margin-top:auto}
+.plans-nav-btn{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.15);color:var(--gold);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background .3s}
+.plans-nav-btn:hover{background:rgba(201,168,76,.2)}
+.plans-progress{flex:1;height:2px;background:rgba(201,168,76,.1);position:relative;overflow:hidden}
+.plans-progress-bar{height:100%;background:var(--gold);width:0;transition:width .3s}
+.plans-dots-row{display:flex;gap:5px;justify-content:center;margin-top:12px}
+.plans-dot-item{width:5px;height:5px;border-radius:50%;background:rgba(201,168,76,.15);cursor:pointer;transition:background .3s,transform .3s}
+.plans-dot-item.active{background:var(--gold);transform:scale(1.4)}
+.plans-auto-badge{font-family:var(--font-mono);font-size:8px;letter-spacing:.08em;color:var(--gold-dim);text-transform:uppercase;cursor:pointer;padding:2px 8px;border:1px solid rgba(201,168,76,.1);margin-left:auto;transition:color .3s,border-color .3s}
+.plans-auto-badge:hover{color:var(--gold);border-color:rgba(201,168,76,.3)}
+.plans-auto-badge.paused{color:var(--silver);border-color:rgba(201,168,76,.05)}
+@media(max-width:768px){
+  .plans-viewer{grid-template-columns:1fr}
+  .plans-img-wrap{min-height:220px}
+}
 .project-modal-info{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:center}
 .project-modal-info h2{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);letter-spacing:.1em;color:var(--white);margin-bottom:6px}
 .project-modal-info .modal-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
@@ -784,6 +813,28 @@ a{color:var(--gold);text-decoration:none}
         <div class="modal-specs" id="modalSpecs"></div>
         <div class="gallery-caption" id="modalCaption" style="display:none"></div>
         <div class="gallery-dots" id="modalDots"></div>
+      </div>
+      <!-- PLANS SLIDESHOW -->
+      <div class="plans-section" id="plansSection">
+        <div class="plans-header">
+          <h3>Planos T&#233;cnicos</h3>
+          <div class="plans-line"></div>
+        </div>
+        <div class="plans-viewer">
+          <div class="plans-img-wrap" id="plansImgWrap"></div>
+          <div class="plans-info-panel">
+            <span class="plans-category-badge" id="plansCat"></span>
+            <span class="plans-counter" id="plansCounter"></span>
+            <p class="plans-caption-text" id="plansCaption"></p>
+            <div class="plans-nav-row">
+              <button class="plans-nav-btn" onclick="event.stopPropagation();plansGo(-1)">&#8249;</button>
+              <div class="plans-progress"><div class="plans-progress-bar" id="plansBar"></div></div>
+              <button class="plans-nav-btn" onclick="event.stopPropagation();plansGo(1)">&#8250;</button>
+              <span class="plans-auto-badge" id="plansAutoBtn" onclick="event.stopPropagation();togglePlansAuto()">AUTO</span>
+            </div>
+            <div class="plans-dots-row" id="plansDots"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1686,6 +1737,15 @@ var projectData = [
       {src:'img/agrofuturo-6.webp', caption:'Excavación y conformación de canal trapezoidal en concreto con sección variable. Trabajos de repello y acabado fino en paredes y fondo del canal, con estructuras de invernadero al fondo.'},
       {src:'img/agrofuturo-7.webp', caption:'Caja puente de inspección en concreto reforzado con tapa removible y abertura de acceso. Estructura de transición y conexión entre tramos de tubería del sistema de aguas residuales.'},
       {src:'img/agrofuturo-8.webp', caption:'Caja especial reductora de concreto reforzado con doble abertura y tubería de conexión visible. Permite la inspección, cambio de dirección y reducción de sección en el sistema de alcantarillado sanitario.'}
+    ],
+    plans: [
+      {category:'Red Sanitaria', src:'img/agrofuturo-9.webp', caption:'Perfil longitudinal de red sanitaria PK 0+000 a PK 0+220 con pozos de visita, pendientes, diámetros de tubería y niveles de inversión.'},
+      {category:'Red Sanitaria', src:'img/agrofuturo-10.webp', caption:'Planta general de red sanitaria con pozos de visita PV-1 a PV-6, diámetros de tubería, longitudes de tramo y dirección de flujo por gravedad.'},
+      {category:'Baños y Comedor', src:'img/agrofuturo-11.png', caption:'Planta arquitectónica de baños y comedor Fase I (1:100). Comedor 82.39 m², S.S. Mujeres 9.86 m², S.S. Hombres 13.06 m², vestidores con casilleros y duchas.'},
+      {category:'Baños y Comedor', src:'img/agrofuturo-12.png', caption:'Secciones constructivas S1 de servicios sanitarios: muros de bloque 15×20×40, soleras SC-1 y SC-2, divisiones de cubículos y duchas, casilleros metálicos 0.30×0.45 m.'},
+      {category:'Baños y Comedor', src:'img/agrofuturo-13.png', caption:'Isométricos de detalles constructivos: lavamanos suspendidos de porcelana Corona, cubículo de inodoro con tanque bajo y ducha con sardinel de concreto 10×15 cm y cerámica blanca 20×30 cm.'},
+      {category:'Instalaciones Hidrosanitarias', src:'img/agrofuturo-14.webp', caption:'Planta de instalaciones sanitarias con redes de aguas negras (PVC Ø4"), aguas grises (PVC Ø2") y ventilación (PVC Ø2"). Cajas de registro CR-1 a CR-6 de 0.60×0.60 m.'},
+      {category:'Instalaciones Hidrosanitarias', src:'img/agrofuturo-15.png', caption:'Isométrico sanitario 3D de redes de aguas negras, grises y ventilación con accesorios. Detalle de subida a ducha con tubería PVC Ø1/2" empotrada en muro. Isométrico de red de agua potable.'}
     ]
   },
   {
@@ -1748,6 +1808,11 @@ var projectData = [
 
 var galleryIdx = 0;
 var galleryData = [];
+var galleryTimer = null;
+var plansIdx = 0;
+var plansData = [];
+var plansAutoOn = true;
+var plansTimer = null;
 
 function openProject(idx) {
   var d = projectData[idx];
@@ -1783,11 +1848,42 @@ function openProject(idx) {
       dotsHTML += '<span class="gallery-dot' + (i===0?' active':'') + '" onclick="event.stopPropagation();gallerySet(' + i + ')"></span>';
     });
     dots.innerHTML = dotsHTML;
+    startGalleryAuto();
   } else {
     galleryData = [];
+    stopGalleryAuto();
     wrap.innerHTML = '<img id="modalImg" src="' + cards[idx].src + '" alt="" style="width:100%;height:100%;object-fit:cover;display:block">';
     caption.style.display = 'none';
     dots.innerHTML = '';
+  }
+
+  var plansSection = document.getElementById('plansSection');
+  if (d.plans && d.plans.length > 0) {
+    plansData = d.plans;
+    plansIdx = 0;
+    var pHTML = '';
+    d.plans.forEach(function(p, i) {
+      pHTML += '<img src="' + p.src + '" alt="' + p.category + ' ' + (i+1) + '" class="' + (i===0?'active':'') + '">';
+    });
+    document.getElementById('plansImgWrap').innerHTML = pHTML;
+    document.getElementById('plansCat').textContent = d.plans[0].category;
+    document.getElementById('plansCounter').textContent = '01 / ' + String(d.plans.length).padStart(2,'0');
+    document.getElementById('plansCaption').textContent = d.plans[0].caption;
+    document.getElementById('plansBar').style.width = (100 / d.plans.length) + '%';
+    var pdHTML = '';
+    d.plans.forEach(function(p, i) {
+      pdHTML += '<span class="plans-dot-item' + (i===0?' active':'') + '" onclick="event.stopPropagation();plansSet(' + i + ')"></span>';
+    });
+    document.getElementById('plansDots').innerHTML = pdHTML;
+    plansSection.style.display = 'block';
+    plansAutoOn = true;
+    document.getElementById('plansAutoBtn').classList.remove('paused');
+    document.getElementById('plansAutoBtn').textContent = 'AUTO';
+    startPlansAuto();
+  } else {
+    plansData = [];
+    plansSection.style.display = 'none';
+    stopPlansAuto();
   }
 
   var overlay = document.getElementById('projectModal');
@@ -1796,10 +1892,21 @@ function openProject(idx) {
   document.body.style.overflow = 'hidden';
 }
 
+function startGalleryAuto() {
+  stopGalleryAuto();
+  galleryTimer = setInterval(function() {
+    galleryIdx = (galleryIdx + 1) % galleryData.length;
+    gallerySet(galleryIdx);
+  }, 2000);
+}
+function stopGalleryAuto() {
+  if (galleryTimer) { clearInterval(galleryTimer); galleryTimer = null; }
+}
 function galleryGo(dir) {
   if (!galleryData.length) return;
   galleryIdx = (galleryIdx + dir + galleryData.length) % galleryData.length;
   gallerySet(galleryIdx);
+  if (galleryTimer) { stopGalleryAuto(); startGalleryAuto(); }
 }
 
 function gallerySet(i) {
@@ -1812,12 +1919,74 @@ function gallerySet(i) {
   allDots.forEach(function(dot, j) { dot.classList.toggle('active', j === i); });
 }
 
+function plansGo(dir) {
+  if (!plansData.length) return;
+  plansIdx = (plansIdx + dir + plansData.length) % plansData.length;
+  plansSet(plansIdx);
+  if (plansAutoOn) { stopPlansAuto(); startPlansAuto(); }
+}
+function plansSet(i) {
+  plansIdx = i;
+  var imgs = document.querySelectorAll('#plansImgWrap img');
+  imgs.forEach(function(img, j) { img.classList.toggle('active', j === i); });
+  document.getElementById('plansCat').textContent = plansData[i].category;
+  document.getElementById('plansCounter').textContent = String(i+1).padStart(2,'0') + ' / ' + String(plansData.length).padStart(2,'0');
+  document.getElementById('plansCaption').textContent = plansData[i].caption;
+  document.getElementById('plansBar').style.width = ((i+1) / plansData.length * 100) + '%';
+  var allDots = document.querySelectorAll('.plans-dot-item');
+  allDots.forEach(function(dot, j) { dot.classList.toggle('active', j === i); });
+}
+function startPlansAuto() {
+  stopPlansAuto();
+  plansTimer = setInterval(function() {
+    plansIdx = (plansIdx + 1) % plansData.length;
+    plansSet(plansIdx);
+  }, 2000);
+}
+function stopPlansAuto() {
+  if (plansTimer) { clearInterval(plansTimer); plansTimer = null; }
+}
+function togglePlansAuto() {
+  plansAutoOn = !plansAutoOn;
+  var btn = document.getElementById('plansAutoBtn');
+  if (plansAutoOn) {
+    btn.classList.remove('paused');
+    btn.textContent = 'AUTO';
+    startPlansAuto();
+  } else {
+    btn.classList.add('paused');
+    btn.textContent = 'PAUSA';
+    stopPlansAuto();
+  }
+}
 function closeProject() {
+  stopGalleryAuto();
+  stopPlansAuto();
   var overlay = document.getElementById('projectModal');
   overlay.classList.remove('active');
   setTimeout(function(){ overlay.style.display = 'none'; }, 300);
   document.body.style.overflow = '';
 }
+(function(){
+  var cardIdx = {};
+  projectData.forEach(function(d, pi) {
+    if (d.gallery && d.gallery.length > 1) {
+      cardIdx[pi] = 0;
+      setInterval(function() {
+        var card = document.querySelectorAll('.project-card')[pi];
+        if (!card) return;
+        var img = card.querySelector('.project-thumb img');
+        if (!img) return;
+        cardIdx[pi] = (cardIdx[pi] + 1) % d.gallery.length;
+        img.style.opacity = '0';
+        setTimeout(function() {
+          img.src = d.gallery[cardIdx[pi]].src;
+          img.style.opacity = '1';
+        }, 300);
+      }, 2000);
+    }
+  });
+})();
 function openHFManual() {
   var ov = document.getElementById('hfManual');
   ov.style.display = 'block';
